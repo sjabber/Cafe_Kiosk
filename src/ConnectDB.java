@@ -20,7 +20,7 @@ public class ConnectDB {
     private String url = null;
 
     // 생성자
-    public ConnectDB(){
+    public ConnectDB() {
         this(SQLITE_FILE_DB_URL);
     }
     public ConnectDB(String url) {

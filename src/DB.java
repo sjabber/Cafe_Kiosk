@@ -3,7 +3,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-public class Main2 {
+public class DB {
     public static void main(String[] args) {
         Connection conn = null;
 
@@ -17,12 +17,12 @@ public class Main2 {
 
             // SQL 수행
             Statement stat = conn.createStatement();
-            ResultSet RS = stat.executeQuery("SELECT Iname FROM I_coffee WHERE Pnum = 1");
+            ResultSet RS = stat.executeQuery("SELECT Iname, price FROM I_coffee WHERE Pnum = 1");
             while(RS.next()) {
                 String id = RS.getString("Iname");
-                System.out.println(id);
+                String price = RS.getString("price");
+                System.out.println(id + " " + price);
             }
-
 
         } catch (Exception e) {
             e.printStackTrace();
