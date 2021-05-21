@@ -29,6 +29,8 @@ public class Prototype {
 	private HomeButton homeBtn = new HomeButton();
 	private LeftButton Left = new LeftButton();
 	private RightButton Right = new RightButton();
+
+	ConnectDB DB = new ConnectDB();
 	
 	private final JLabel lblNewLabel_1 = new JLabel("MD상품");
 	private final JLabel lblNewLabel_1_1 = new JLabel("추천음료");
@@ -122,7 +124,7 @@ public class Prototype {
 		Middle.setLayout(null);
 
 
-		ConnectDB DB = new ConnectDB();
+
 
 
 		// Middle
