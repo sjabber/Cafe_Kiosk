@@ -1,4 +1,4 @@
-package page;
+package page.Button;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,8 +14,8 @@ public class HomeButton extends JButton {
         Image changeHomeImg = HomeIcon.getImage().getScaledInstance(30, 35, Image.SCALE_SMOOTH);
         ImageIcon home = new ImageIcon(changeHomeImg);
         this.setIcon(home);
-        this.setBounds(6, 6, 35, 35);
         this.setBackground(new Color(255, 102, 102));
+        this.setBounds(3, 3, 35, 35);
         this.setFocusPainted(false);
         this.setBorderPainted(false);
         //		homeBtn.setContentAreaFilled(false); // 클릭 표시 안나도록.

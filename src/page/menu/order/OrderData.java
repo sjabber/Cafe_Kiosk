@@ -28,5 +28,8 @@ public class OrderData {
 
     private final Calculator calculator = new Calculator();
 
+    public void clearMenu() {
+        orderMenuList.clear();
+    }
 
 }
