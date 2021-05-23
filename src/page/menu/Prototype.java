@@ -19,12 +19,15 @@ public class Prototype {
 	private JPanel Top = new JPanel();
 	private JPanel Middle = new JPanel();
 	private JPanel Bottom = new JPanel();
+	private JPanel selectPanel = new JPanel();
 
 	// TopSetting -> 1 좌측, TopSetting -> 2 우측
 	private int TopSetting = 1; // default -> 1
 
 	// Selected -> 1번 MD, 2번 추천 음료, 3번 추천 디저트, 4번 아이스 커피, 5번 뜨거운 커피, 6번 디저트
 	private int Selected = 1; // default -> 1번
+	
+	
 	
 	private HomeButton homeBtn = new HomeButton();
 	private LeftButton Left = new LeftButton();
@@ -86,7 +89,7 @@ public class Prototype {
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_1.setForeground(Color.WHITE);
 		lblNewLabel_1.setFont(new Font("맑은 고딕", Font.BOLD, 22));
-		lblNewLabel_1.setBounds(70, 59, 90, 26);
+		lblNewLabel_1.setBounds(70, 60, 90, 26);
 
 		Top.add(lblNewLabel_1);
 		lblNewLabel_1_1.setHorizontalAlignment(SwingConstants.CENTER);
@@ -120,6 +123,10 @@ public class Prototype {
 		Bottom.setBackground(Color.red);
 		
 		frame.getContentPane().add(Top);
+		
+		
+		selectPanel.setBounds(57, 52, 110, 43);
+		Top.add(selectPanel);
 		frame.getContentPane().add(Middle);
 		Middle.setLayout(null);
 
@@ -232,5 +239,4 @@ public class Prototype {
 
 		return btn;
 	}
-
 }
