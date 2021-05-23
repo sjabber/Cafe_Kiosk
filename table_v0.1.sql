@@ -41,7 +41,7 @@ create table MD
 );
 
 create unique index MD_name_uindex
-    on MD (name);
+    on page.product.MD (name);
 
 create table dessert
 (
