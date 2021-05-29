@@ -95,9 +95,9 @@ public class KioskPage extends JPanel {
     /*******************************************************************8
      장바구니 구현 연습
      */
-    public ArrayList<Product> CheckList = new ArrayList<>();
-    public Map<Product, Integer> cart = new HashMap<>();
-    public Set<Product> keys;
+    public static ArrayList<Product> CheckList = new ArrayList<>();
+    public static Map<Product, Integer> cart = new HashMap<>();
+    public static Set<Product> keys;
 
     public void menuadd(JTextField name, JLabel L1) {
         int quantity = Integer.parseInt(L1.getText());
