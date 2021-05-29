@@ -50,7 +50,7 @@ public class RoundButton extends JButton {
         int textX = (width - stringBounds.width) / 2;
         int textY = (height - stringBounds.height) / 2 + fontMetrics.getAscent();
 
-        ImageIcon image = new ImageIcon("images/MD/" + num + ".jpg");
+        ImageIcon image = new ImageIcon("images/" + num + ".jpg");
         graphics.drawImage(image.getImage(), 30, 2, 110, 110, null);
 
         graphics.setColor(getForeground());

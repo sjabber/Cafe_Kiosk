@@ -18,5 +18,4 @@ public class Menu {
         return Price;
     }
 
-
 }
