@@ -20,6 +20,7 @@ public class Prototype {
 	private JPanel Middle = new JPanel();
 	private JPanel Bottom = new JPanel();
 	private JPanel selectPanel = new JPanel();
+	private final JPanel BottomPanel = new JPanel();
 
 	// TopSetting -> 1 좌측, TopSetting -> 2 우측
 	private int TopSetting = 1; // default -> 1
@@ -41,7 +42,9 @@ public class Prototype {
 	private final JLabel lblNewLabel_1_4 = new JLabel("커피 (HOT)");
 	private final JLabel lblNewLabel_1_2 = new JLabel("추천 디저트");
 	private final JLabel lblNewLabel_3 = new JLabel("2000원");
-
+	
+	
+	
 	/**
 	 * Launch the application.
 	 */
@@ -120,7 +123,6 @@ public class Prototype {
 		Middle.setBounds(0, 94, 754, 566);
 
 		Bottom.setBounds(0, 660, 754, 238);
-		Bottom.setBackground(Color.red);
 		
 		frame.getContentPane().add(Top);
 		
@@ -159,6 +161,11 @@ public class Prototype {
 
 
 		frame.getContentPane().add(Bottom);
+		Bottom.setLayout(null);
+		BottomPanel.setBackground(Color.WHITE);
+		BottomPanel.setBounds(12, 665, 472, 138);
+		
+		Bottom.add(BottomPanel);
 	}
 
 	private void PanelSet(String query, JPanel middle, ConnectDB db) throws SQLException {

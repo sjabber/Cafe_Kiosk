@@ -1,22 +1,34 @@
 package page;
 
+import DB.Product;
 import Main.MainFrame;
 import page.menu.order.OrderData;
+
 import javax.swing.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+
 
 // 주문받을 화면과 관련된 페이지 설정, 메서드들을 제공하는 MenuPage 의 부모클래스
 public class KioskPage extends JPanel {
 
-    public KioskPage() {};
+    public KioskPage() {
+    }
+
+    ;
 
     public KioskPage(PageData pageData) {
         this.pageData = pageData;
         initKioskPage();
         setTouchListener();
-    };
+    }
+
+    ;
 
     protected interface OnClickListener {
         public void onClick();
@@ -30,7 +42,7 @@ public class KioskPage extends JPanel {
     //private static final KioskOrderData kioskOrderData = new KioskOrderData();
 
     private PageData pageData;
-    private MainFrame mainFrame;
+    protected MainFrame mainFrame;
 
     private void initKioskPage() {
         this.setLayout(null);
@@ -78,5 +90,71 @@ public class KioskPage extends JPanel {
                 }
             }
         });
+    }
+
+    /*******************************************************************8
+     장바구니 구현 연습
+     */
+    public ArrayList<Product> CheckList = new ArrayList<>();
+    public Map<Product, Integer> cart = new HashMap<>();
+    public Set<Product> keys;
+
+    public void menuadd(JTextField name, JLabel L1) {
+        int quantity = Integer.parseInt(L1.getText());
+        quantity = quantity + 1;
+        keys = cart.keySet();
+        for (Product p : keys) {
+            if (p.getProd_name().equals(name.getText())) {
+                cart.put(p, quantity);
+                L1.setText(String.valueOf(quantity));
+            }
+        }
+    }
+
+    public void menudelete(JTextField name, JLabel L1) {
+        int quantity = Integer.parseInt(L1.getText());
+        quantity = quantity - 1;
+        keys = cart.keySet();
+        System.out.println(cart);
+
+
+        if (quantity == 0) {
+//			getIndex(name.getText());
+            CheckList.remove(getIndex(name.getText()));
+            for (Product p : keys) {
+                if (p.getProd_name().equals(name.getText())) {
+                    cart.remove(p);
+                    break;
+                }
+            }
+        } else {
+            for (Product p : keys) {
+                if (p.getProd_name().equals(name.getText())) {
+                    cart.put(p, quantity);
+                    L1.setText(String.valueOf(quantity));
+                }
+            }
+        }
+    }
+
+    public int getIndex(String name) {
+        int index = -1;
+
+        for (int i = 0; i < CheckList.size(); i++) {
+            if (CheckList.get(i).getProd_name().equals(name)) {
+                index = i;
+            }
+        }
+        return index;
+    }
+
+    public int totalamount() {
+        keys = cart.keySet();
+        int total = 0;
+        for (Product p : keys) {
+            total += p.getProd_price() * cart.get(p);
+        }
+        return total;
+
     }
 }

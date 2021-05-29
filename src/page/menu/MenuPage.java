@@ -1,6 +1,8 @@
 package page.menu;
 
 import DB.ConnectDB;
+import DB.Product;
+import Main.MainFrame;
 import page.Button.HomeButton;
 import page.Button.LeftButton;
 import page.Button.RightButton;
@@ -21,7 +23,6 @@ import java.sql.SQLException;
 public class MenuPage extends KioskPage {
 
     ConnectDB DB = new ConnectDB();
-
     private JPanel Top = new JPanel();
     private JPanel Middle = new JPanel();
     private JPanel Bottom = new JPanel();
@@ -39,13 +40,29 @@ public class MenuPage extends KioskPage {
     private HomeButton homeBtn = new HomeButton();
     private LeftButton Left = new LeftButton();
     private RightButton Right = new RightButton();
+    private final JPanel Bottompanel = new JPanel();
 
     private final JLabel label1 = new JLabel("MD상품");
-    private final JLabel label2 = new JLabel("추천음료");
-    private final JLabel label3 = new JLabel("추천 디저트");
+    private final JLabel label2 = new JLabel("추천 메뉴");
+    private final JLabel label3 = new JLabel("디저트");
     private final JLabel label4 = new JLabel("커피 (ICE)");
     private final JLabel label5 = new JLabel("커피 (HOT)");
-
+    private JTextField Totalamount;
+    private final JButton btnNewButton = new JButton("결제");
+    private final JPanel panel_0 = new JPanel();
+    private final JPanel panel_1 = new JPanel();
+    private final JPanel panel_2 = new JPanel();
+    private final JPanel panel_3 = new JPanel();
+    private final JButton MinusOnList_0 = new JButton("-");
+    private final JButton PlusOnList_0 = new JButton("+");
+    private JTextField menulist_0;
+    private JTextField menulist_1;
+    private JTextField menulist_2;
+    private JTextField menulist_3;
+    private final JLabel menucount_0 = new JLabel("1");
+    private final JLabel menucount_1 = new JLabel("1");
+    private final JLabel menucount_2 = new JLabel("1");
+    private final JLabel menucount_3 = new JLabel("1");
 
     private void setHomeBtnListener() {
         homeBtn.addActionListener(e -> {
@@ -65,18 +82,27 @@ public class MenuPage extends KioskPage {
         // 이후 -> 결제 확인호면, 이전 -> 홈화면
         super(new PageData.Builder().nextPageType(PageType.PAY_PAGE).previousPageType(PageType.START_PAGE).build());
 //		menuTabbedPane = new MenuTabbedPane(this, KioskPage.getOrderData());
+        mainFrame = new MainFrame();
+        mainFrame.setBounds(100, 100, 768, 850);
+        mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setHomeBtnListener();
         initPage();
         setLayout();
     }
 
     private void initPage() throws SQLException {
+//    	this.frame.getContentPane().add(Top);
+//    	this.frame.getContentPane().add(Middle);
+//    	this.frame.getContentPane().add(Bottom);
+
         this.add(initTopPanel());
         this.add(initMiddlePanel());
         this.add(initBottomPanel());
+        this.add(initCheckListPanel());
     }
 
     private JPanel initTopPanel() {
+
         Top.setBounds(0, 0, 754, 94);
 //		Top.add(menuTabbedPane, BorderLayout.CENTER);
         Top.setBackground(new Color(255, 102, 102));
@@ -100,7 +126,7 @@ public class MenuPage extends KioskPage {
         label2.setHorizontalAlignment(SwingConstants.CENTER);
         label2.setForeground(Color.WHITE);
         label2.setFont(new Font("맑은 고딕", Font.BOLD, 22));
-        label2.setBounds(175, 60, 90, 31);
+        label2.setBounds(175, 60, 110, 31);
         Top.add(label2);
 
         label3.setHorizontalAlignment(SwingConstants.CENTER);
@@ -137,20 +163,7 @@ public class MenuPage extends KioskPage {
         label2.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                System.out.println("MD 상품 클릭됨.");
-                Selected = 2;
-                try {
-                    loadMenuPage();
-                } catch (SQLException exception) {
-                    exception.printStackTrace();
-                }
-            }
-        });
-
-        label2.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                System.out.println("MD 상품 클릭됨.");
+                System.out.println("추천 음료 클릭됨.");
                 Selected = 2;
                 try {
                     loadMenuPage();
@@ -163,7 +176,7 @@ public class MenuPage extends KioskPage {
         label3.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                System.out.println("MD 상품 클릭됨.");
+                System.out.println("디저트 클릭됨.");
                 Selected = 3;
                 try {
                     loadMenuPage();
@@ -176,7 +189,7 @@ public class MenuPage extends KioskPage {
         label4.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                System.out.println("MD 상품 클릭됨.");
+                System.out.println("커피 아이스 클릭됨.");
                 Selected = 4;
                 try {
                     loadMenuPage();
@@ -189,7 +202,7 @@ public class MenuPage extends KioskPage {
         label5.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                System.out.println("MD 상품 클릭됨.");
+                System.out.println("커피 핫 클릭됨.");
                 Selected = 5;
                 try {
                     loadMenuPage();
@@ -199,7 +212,9 @@ public class MenuPage extends KioskPage {
             }
         });
 
+        mainFrame.getContentPane().setLayout(null);
 
+        mainFrame.getContentPane().add(Top);
 
         return Top;
     }
@@ -214,41 +229,49 @@ public class MenuPage extends KioskPage {
 
         if (TopSetting == 1) {
             switch (Selected) {
-                case 1:
-                    String query = "SELECT Pnum, price, Pname FROM MD WHERE price != 0";
-                    PanelSet(query, Middle, DB);
+                case 1: // MD 상품
+                    PanelSet("SELECT Pnum, price, Pname FROM MD WHERE price != 0", Middle, DB);
 
                     selectPanel.setBounds(57, 52, 110, 43);
                     Top.add(selectPanel);
 
                     break;
-                case 2:
 
-                    selectPanel.setBounds(162, 52, 110, 43);
+                case 2: // 추천 메뉴
+                    String query = "SELECT Pnum, price, Pname\n" +
+                            "FROM (SELECT Pr.Pnum, price, Pname, Count\n" +
+                            "      From Products as Pr\n" +
+                            "            LEFT JOIN I_coffee i ON i.Pnum = Pr.Pnum\n" +
+                            "      ORDER BY Count DESC\n" +
+                            "      LIMIT 12) as P\n" +
+                            "where price is not null and Pname is not null\n" +
+                            "ORDER BY Pnum";
+                    PanelSet(query, Middle, DB);
+                    selectPanel.setBounds(175, 52, 110, 43);
                     Top.add(selectPanel);
                     break;
-                case 3:
 
-                    selectPanel.setBounds(277, 52, 130, 43);
+                case 3: // 디저트
+                    PanelSet("SELECT Pnum, price, Pname FROM dessert WHERE price != 0", Middle, DB);
+
+                    selectPanel.setBounds(292, 52, 100, 43);
                     Top.add(selectPanel);
                     break;
-                case 4:
 
+                case 4: // 커피 (ICE)
+                    PanelSet("SELECT Pnum, price, Pname FROM I_coffee WHERE price != 0", Middle, DB);
                     selectPanel.setBounds(410, 52, 130, 43);
                     Top.add(selectPanel);
                     break;
-                case 5:
 
-                    selectPanel.setBounds(555, 52, 130, 43);
+                case 5: // 커피 (HOT)
+                    PanelSet("SELECT Pnum, price, Pname FROM H_coffee WHERE price != 0", Middle, DB);
+                    selectPanel.setBounds(550, 52, 130, 43);
                     Top.add(selectPanel);
                     break;
-                case 6:
-//
-//                    selectPanel.setBounds(555, 52, 130, 43);
-//                    Top.add(selectPanel);
-                    break;
             }
-        } else {
+        }
+/*        else {
             switch (Selected) {
                 case 1: // MD 상품
                     String query = "SELECT Pnum, price, Pname FROM MD WHERE price != 0";
@@ -264,17 +287,21 @@ public class MenuPage extends KioskPage {
                     Top.add(selectPanel);
                     break;
                 case 3: // 추천디저트
-
+                    String query3 = "SELECT Pnum, price, Pname FROM dessert WHERE price != 0";
+                    PanelSet(query3, Middle, DB);
                     selectPanel.setBounds(277, 52, 130, 43);
                     Top.add(selectPanel);
+
                     break;
                 case 4: // 커피 (ICE)
-
+                    String query4 = "SELECT Pnum, price, Pname FROM I_coffee WHERE price != 0";
+                    PanelSet(query4, Middle, DB);
                     selectPanel.setBounds(372, 52, 110, 43);
                     Top.add(selectPanel);
                     break;
                 case 5: // 커피 (HOT)
-
+                    String query5 = "SELECT Pnum, price, Pname FROM H_coffee WHERE price != 0";
+                    PanelSet(query5, Middle, DB);
                     selectPanel.setBounds(477, 52, 110, 43);
                     Top.add(selectPanel);
                     break;
@@ -284,15 +311,17 @@ public class MenuPage extends KioskPage {
                     Top.add(selectPanel);
                     break;
             }
-        }
+        }*/
 
-
+        mainFrame.getContentPane().add(Middle);
         return Middle;
     }
 
     private JPanel initBottomPanel() {
         Bottom.setBounds(0, 660, 754, 238);
         Bottom.setBackground(Color.red);
+        Bottom.setLayout(null);
+
         return Bottom;
     }
 
@@ -367,18 +396,244 @@ public class MenuPage extends KioskPage {
         // 버튼을 누르면 결제창에 정보가 업로드 되도록 (아직 안함)
         btn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                System.out.println(L1.getText());
-                System.out.println(L2.getText());
+                Product p = new Product(L1.getText(), Integer.parseInt(L2.getText()));
+                //같은메뉴가 장바구니에 있을시 변화없음 (수량 하나 추가할지 고려해봐야함)
+                if (getIndex(L1.getText()) == -1 && CheckList.size() < 4) {
+                    CheckList.add(p);
+                    cart.put(p, 1);
+                }
+                System.out.println(cart.size());
+                System.out.println(cart.get(p));
+                viewcart();
+
             }
         });
 
         return btn;
     }
 
+    public void viewcart() {
+        int i = CheckList.size();
+        int k = 0;
+        panel_0.setVisible(false);
+        panel_1.setVisible(false);
+        panel_2.setVisible(false);
+        panel_3.setVisible(false);
+        keys = cart.keySet();
+
+        switch (k) {
+            case 0:
+                if (k == i)
+                    break;
+
+                panel_0.setVisible(true);
+                menulist_0.setText(CheckList.get(k).getProd_name());
+                menucount_0.setText(cart.get(CheckList.get(k)) + "");
+                k++;
+            case 1:
+                if (k == i)
+                    break;
+                panel_1.setVisible(true);
+                menulist_1.setText(CheckList.get(k).getProd_name());
+                menucount_1.setText(cart.get(CheckList.get(k)) + "");
+
+                k++;
+
+            case 2:
+                if (k == i)
+                    break;
+                panel_2.setVisible(true);
+                menulist_2.setText(CheckList.get(k).getProd_name());
+                menucount_2.setText(cart.get(CheckList.get(k)) + "");
+                k++;
+            case 3:
+                if (k == i)
+                    break;
+                panel_3.setVisible(true);
+                menulist_3.setText(CheckList.get(k).getProd_name());
+                menucount_3.setText(cart.get(CheckList.get(k)) + "");
+                k++;
+            case 4:
+                if (k == i)
+                    break;
+                //여기에 최대4개만 고를수있다고 팝업 띄우면 좋겠음
+        }
+        Totalamount.setText(totalamount() + "");
+    }
+
+    private JPanel initCheckListPanel() {
+        Bottompanel.setBounds(0, 662, 754, 162);
+        Bottom.add(Bottompanel);
+        Bottompanel.setLayout(null);
+
+
+        Totalamount = new JTextField();
+        Totalamount.setText("0");
+        Totalamount.setBounds(618, 6, 130, 45);
+        Bottompanel.add(Totalamount);
+        Totalamount.setColumns(10);
+        btnNewButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+        btnNewButton.setBounds(618, 53, 130, 103);
+
+        Bottompanel.add(btnNewButton);
+        panel_0.setBounds(6, 6, 609, 37);
+
+        menucount_0.setHorizontalAlignment(SwingConstants.CENTER);
+        menucount_0.setFont(new Font("Lucida Grande", Font.PLAIN, 13));
+        menucount_0.setBounds(444, 11, 62, 16);
+        panel_0.add(menucount_0);
+
+        Bottompanel.add(panel_0);
+        panel_0.setLayout(null);
+        MinusOnList_0.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                menudelete(menulist_0, menucount_0);
+                viewcart();
+            }
+        });
+        MinusOnList_0.setBounds(415, 6, 29, 29);
+
+        panel_0.add(MinusOnList_0);
+
+        menulist_0 = new JTextField();
+        menulist_0.setBounds(35, 0, 351, 37);
+        panel_0.add(menulist_0);
+        menulist_0.setColumns(10);
+
+        PlusOnList_0.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                menuadd(menulist_0, menucount_0);
+                Totalamount.setText(totalamount() + "");
+            }
+        });
+        PlusOnList_0.setBounds(506, 6, 29, 29);
+
+        panel_0.add(PlusOnList_0);
+
+//		JPanel panel_1 = new JPanel();
+        panel_1.setLayout(null);
+        panel_1.setBounds(6, 43, 609, 37);
+        Bottompanel.add(panel_1);
+
+//		JLabel menucount_1 = new JLabel("1");
+        menucount_1.setHorizontalAlignment(SwingConstants.CENTER);
+        menucount_1.setFont(new Font("Lucida Grande", Font.PLAIN, 13));
+        menucount_1.setBounds(444, 11, 62, 16);
+        panel_1.add(menucount_1);
+
+        JButton MinusOnList_1 = new JButton("-");
+        MinusOnList_1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                menudelete(menulist_1, menucount_1);
+                viewcart();
+            }
+        });
+        MinusOnList_1.setBounds(415, 6, 29, 29);
+        panel_1.add(MinusOnList_1);
+
+
+        menulist_1 = new JTextField();
+        menulist_1.setColumns(10);
+        menulist_1.setBounds(35, 0, 351, 37);
+        panel_1.add(menulist_1);
+
+        JButton PlusOnList_1 = new JButton("+");
+        PlusOnList_1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                menuadd(menulist_1, menucount_1);
+                Totalamount.setText(totalamount() + "");
+            }
+        });
+        PlusOnList_1.setBounds(506, 6, 29, 29);
+        panel_1.add(PlusOnList_1);
+
+//		JPanel panel_2 = new JPanel();
+        panel_2.setLayout(null);
+        panel_2.setBounds(6, 80, 609, 37);
+        Bottompanel.add(panel_2);
+
+//		JLabel menucount_2 = new JLabel("1");
+        menucount_2.setHorizontalAlignment(SwingConstants.CENTER);
+        menucount_2.setFont(new Font("Lucida Grande", Font.PLAIN, 13));
+        menucount_2.setBounds(444, 11, 62, 16);
+        panel_2.add(menucount_2);
+
+        JButton MinusOnList_2 = new JButton("-");
+        MinusOnList_2.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                menudelete(menulist_2, menucount_2);
+                viewcart();
+            }
+        });
+        MinusOnList_2.setBounds(415, 6, 29, 29);
+        panel_2.add(MinusOnList_2);
+
+
+        menulist_2 = new JTextField();
+        menulist_2.setColumns(10);
+        menulist_2.setBounds(35, 0, 351, 37);
+        panel_2.add(menulist_2);
+
+        JButton PlusOnList_2 = new JButton("+");
+        PlusOnList_2.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                menuadd(menulist_2, menucount_2);
+                Totalamount.setText(totalamount() + "");
+            }
+        });
+        PlusOnList_2.setBounds(506, 6, 29, 29);
+        panel_2.add(PlusOnList_2);
+
+//		JPanel panel_3 = new JPanel();
+        panel_3.setLayout(null);
+        panel_3.setBounds(6, 117, 609, 37);
+        Bottompanel.add(panel_3);
+
+//		JLabel menucount_3 = new JLabel("1");
+        menucount_3.setHorizontalAlignment(SwingConstants.CENTER);
+        menucount_3.setFont(new Font("Lucida Grande", Font.PLAIN, 13));
+        menucount_3.setBounds(444, 11, 62, 16);
+        panel_3.add(menucount_3);
+
+        JButton MinusOnList_3 = new JButton("-");
+        MinusOnList_3.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                menudelete(menulist_3, menucount_3);
+                viewcart();
+            }
+        });
+        MinusOnList_3.setBounds(415, 6, 29, 29);
+        panel_3.add(MinusOnList_3);
+
+
+        menulist_3 = new JTextField();
+        menulist_3.setColumns(10);
+        menulist_3.setBounds(35, 0, 351, 37);
+        panel_3.add(menulist_3);
+
+        JButton PlusOnList_3 = new JButton("+");
+        PlusOnList_3.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                menuadd(menulist_3, menucount_3);
+                Totalamount.setText(totalamount() + "");
+            }
+        });
+        PlusOnList_3.setBounds(506, 6, 29, 29);
+        panel_3.add(PlusOnList_3);
+
+        viewcart();
+
+        mainFrame.getContentPane().add(Bottom);
+
+        return Bottompanel;
+    }
 
     // 홈버튼 누르면 주문내역 초기화
     private void setLayout() {
         this.getHomeBtn().addActionListener((e) -> KioskPage.getOrderData().clearMenu());
     }
-
 }
