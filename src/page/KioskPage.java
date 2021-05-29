@@ -64,7 +64,11 @@ public class KioskPage extends JPanel {
             mainFrame.attachPage(pageType.createKioskPage());
         }
     }
-
+    protected void loadPayPage() throws SQLException {
+    	PageType pageType = PageType.PAY_PAGE;
+        mainFrame.attachPage(pageType.createKioskPage());
+    }
+    
     protected void loadMenuPage() throws SQLException {
         PageType pageType = PageType.MENU_PAGE;
         mainFrame.attachPage(pageType.createKioskPage());

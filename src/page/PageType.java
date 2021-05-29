@@ -1,6 +1,7 @@
 package page;
 
 import page.menu.MenuPage;
+import page.payment.PayPage;
 import page.start.StartPage;
 import java.sql.SQLException;
 
@@ -17,6 +18,8 @@ public enum PageType {
             kioskPage = new StartPage();
         } else if (this == MENU_PAGE) {
             kioskPage = new MenuPage();
+        } else if (this == PAY_PAGE) {
+        	kioskPage = new PayPage();
         }
 
         return kioskPage;
