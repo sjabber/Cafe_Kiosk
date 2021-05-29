@@ -1,10 +1,8 @@
-package Team;
+package Team_Test_files;
 
 import DB.ConnectDB;
 import DB.Product;
 import page.KioskPage;
-import page.PageData;
-import page.PageType;
 import page.Button.HomeButton;
 import page.Button.LeftButton;
 import page.Button.RightButton;
