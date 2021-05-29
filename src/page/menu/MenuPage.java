@@ -474,7 +474,17 @@ public class MenuPage extends KioskPage {
         Totalamount.setColumns(10);
         btnNewButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-
+            	//장바구니가 비었으면 에러창 팝업, 담겨져있으면 결제창으로
+            	try {
+            		if(CheckList.size()==0) {
+            			JOptionPaneEx();
+            		}else if(CheckList.size()!=0){
+            			loadPayPage();
+            		}            		
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
             }
         });
         btnNewButton.setBounds(618, 53, 130, 103);
@@ -635,5 +645,10 @@ public class MenuPage extends KioskPage {
     // 홈버튼 누르면 주문내역 초기화
     private void setLayout() {
         this.getHomeBtn().addActionListener((e) -> KioskPage.getOrderData().clearMenu());
+    }
+    // 장바구니에 아무것도 없을시 에러창 팝업
+    public void JOptionPaneEx() {
+		JOptionPane.showMessageDialog(this, "메뉴를 추가해주십시오.", "Message", JOptionPane.ERROR_MESSAGE);
+
     }
 }
