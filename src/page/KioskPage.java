@@ -64,6 +64,14 @@ public class KioskPage extends JPanel {
             mainFrame.attachPage(pageType.createKioskPage());
         }
     }
+    protected void loadPaymentPage() throws SQLException {
+    	PageType pageType = PageType.PAYMENT_PAGE;
+        mainFrame.attachPage(pageType.createKioskPage());
+    }
+    protected void loadCouponPage() throws SQLException {
+    	PageType pageType = PageType.COUPON_PAGE;
+        mainFrame.attachPage(pageType.createKioskPage());
+    }
     protected void loadPayPage() throws SQLException {
     	PageType pageType = PageType.PAY_PAGE;
         mainFrame.attachPage(pageType.createKioskPage());
@@ -161,4 +169,7 @@ public class KioskPage extends JPanel {
         return total;
 
     }
+    //매장에서먹을지 나가먹을지 결정하는 변수
+    //1 = IN , 2 = OUT
+   public static int InorOutNumber;
 }
