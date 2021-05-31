@@ -41,9 +41,9 @@ public class PaymentPage extends KioskPage{
 	private JLabel lblNewLabel_1;
 	private String USER_INFO=""; //커피 구매시 스탬프 증가시켜줄 유저정보 스트링
 	private String query = "SELECT user_Pnum, user_ID, user_PW, user_Stamp FROM user_info WHERE user_Pnum is not null";
-    private String ID="";
+    public static String ID="";
     private String PW="";
-    private int UserStamp=0;
+    public static int UserStamp=0;
 
 	
 	public PaymentPage() throws SQLException  {
@@ -183,8 +183,7 @@ public class PaymentPage extends KioskPage{
         btn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             	if(NumberCount==11&&PasswordCount==4) {
-            		System.out.println(PhoneNumberResult.getText());
-                	System.out.println(Password);
+            		
                 	try {
 						DataIDcheck(query, DB);
 					} catch (SQLException e1) {
@@ -210,14 +209,14 @@ public class PaymentPage extends KioskPage{
             //디비에서 핸드폰번호와 맞는 정보를 매칭한다
             if(PhoneNumberResult.getText().equals(tmp)) {
             	ID=rs.getString("user_ID");
-            	System.out.println("아이디확인");
             	PW=rs.getString("user_PW");
-            	DataPWcheck(query,db);
+            	UserStamp=rs.getInt("user_Stamp");
             }
-            break;
         }
         //끝까지 돌려서 데이터에 해당핸드폰번호가 없을시
-        if(PhoneNumberResult.getText()!=ID) {
+        if(PhoneNumberResult.getText().equals(ID)) {
+        	DataPWcheck(query,db);
+        }else {
         	//데이터에 자동으로회원가입
         	CreateID(query, db);
         	loadCreditCardPage();
@@ -231,7 +230,6 @@ public class PaymentPage extends KioskPage{
         	lastNumber=rs.getInt("user_Pnum");
         }
         lastNumber++;
-        System.out.println(lastNumber);
         //이부분 에러 확인
         String query2="INSERT INTO user_info (user_Pnum, user_ID, user_PW, user_Stamp) values ('"+lastNumber+"', '"+PhoneNumberResult.getText()+"', '"+Password+"', '0');";
         ConnectDB.statement.executeUpdate(query2);
@@ -241,7 +239,7 @@ public class PaymentPage extends KioskPage{
 	
 	private void DataPWcheck(String query, ConnectDB db) throws SQLException{
 		 if(Password.equals(PW)) {
-         	System.out.println("비밀번호확인");
+//         	System.out.println("비밀번호확인");
          	loadCreditCardPage();
 	    	}else {
 	    		JOptionPanePW();
@@ -374,21 +372,6 @@ public class PaymentPage extends KioskPage{
 		return btn;
 	}
 	
-	
-	/**
-	 맨 마지막장 가운데에 카드 이미지 박고
-	 총금액이랑 카드번호// 취소 승인요청 버튼 있는창
-	 * @return
-	 */
-//	private JPanel initPayFinalPanel() {
-//		PayFinal.setBounds(0, 100, 754, 500);
-//		PayFinal.setLayout(null);
-//		PayFinal.setBackground(Color.white);
-//		
-//		
-//		PayFinal.setVisible(false);
-//		return PayFinal;
-//	}
 	private JPanel initTopPanel() {
 		Top.setLayout(null);
 		Top.setBounds(0, 0, 754, 94);

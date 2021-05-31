@@ -7,6 +7,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -316,6 +318,8 @@ public class CouponPage extends KioskPage{
 				StampUpdate(UserStamp,DB);
 				PrintBill();
 				loadStartPage();
+				CheckList = new ArrayList<>();
+				cart = new HashMap<>();
 			}
 			
 		}else {
@@ -329,7 +333,7 @@ public class CouponPage extends KioskPage{
 		for(int i=0;i<CheckList.size();i++) {
 			System.out.print(CheckList.get(i).getProd_name()+" "+CheckList.get(i).getProd_price()+"원 "+cart.get(CheckList.get(i))+"개"+"\n");
 		}
-		System.out.println("총 "+totalquantity+"개      "+"총 "+total+"원");
+		System.out.println("총 "+totalquantity+"개      "+"총 "+totalamount()+"원");
 		if(InorOutNumber==1) {
 			System.out.println("매장");
 		}else if(InorOutNumber==2) {
@@ -338,7 +342,6 @@ public class CouponPage extends KioskPage{
 	}
 	
 	private void StampUpdate(int Stamp,ConnectDB db) throws SQLException{
-        ResultSet rs = db.statement.executeQuery(query);
         String query1="UPDATE user_info SET user_Stamp="+(UserStamp-(totalquantity*10))+" WHERE user_ID='"+ID+"';";
         ConnectDB.statement.executeUpdate(query1);
 	}
@@ -464,7 +467,7 @@ public class CouponPage extends KioskPage{
 //	            JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
 		
 		input = JOptionPane.showConfirmDialog(null, 
-	            "구매가 완료되었습니다. 영수증을 출력하시겠습니까? (현재보유스탬프 : "+UserStamp+"개)", "확인", 
+	            "영수증을 출력하시겠습니까?", "확인", 
 		            JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
 		//input 0 => OK , 2 => CANCEL
     }

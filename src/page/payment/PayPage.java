@@ -49,9 +49,6 @@ public class PayPage extends KioskPage{
 	private String quantity="";
 	private String price="";
 	private int TYPE=0;
-//	private Popup Po;
-//	private PopupFactory pf;
-//	private JPanel CouponP=new JPanel();
 	
 	public PayPage() {
 		super(new PageData.Builder().nextPageType(PageType.COUPON_PAGE).previousPageType(PageType.MENU_PAGE).build());
@@ -62,7 +59,7 @@ public class PayPage extends KioskPage{
 	}
 
 	private void initPage() {
-		this.add(initPaymentPanel());
+//		this.add(initPaymentPanel());
 		this.add(initTopPanel());
 		this.add(initMiddlePanel());
 		this.add(intiBottomPanel());
@@ -123,7 +120,6 @@ public class PayPage extends KioskPage{
 		TotalamountTextField.setColumns(40);
 		
 		
-		System.out.println(CheckList.size());
 		for(int i=0;i<CheckList.size();i++) {
 			name+=CheckList.get(i).getProd_name()+"\n";
 			price+=CheckList.get(i).getProd_price()+"원"+"\n";
@@ -171,8 +167,8 @@ public class PayPage extends KioskPage{
             public void actionPerformed(ActionEvent e) {
                try {
 				loadMenuPage();
+
 			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
             }
@@ -204,7 +200,6 @@ public class PayPage extends KioskPage{
 	    });
 	    TakeOut.setBounds(400, 0, 200, 200);
 	    InorOut.add(TakeOut);
-
 		return InorOut;
 	}
 	
@@ -223,6 +218,8 @@ public class PayPage extends KioskPage{
 	    	public void actionPerformed(ActionEvent e) {
 	    		CardorCoupon.setVisible(false);
 	    		InorOut.setVisible(true);
+	    	    TotalamountTextField.setText(TotalamountTextField.getText().substring(0, TotalamountTextField.getText().length()-5));
+
     	   }
 	    });
 		BacktoInorOut.setBounds(0, 0, 200, 200);
@@ -231,13 +228,10 @@ public class PayPage extends KioskPage{
 	    UseCoupon=new JButton("스탬프사용");
 	    UseCoupon.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
-//	    		Coupon.setVisible(true);
-//	    		Coupon.setEnabled(true);
-//	    		Coupon.grabFocus();
+
 	   
 	    		try {
 					loadCouponPage();
-					System.out.println(11);
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -263,53 +257,5 @@ public class PayPage extends KioskPage{
 		return CardorCoupon;
 	}
 	
-	private JPanel initPaymentPanel() {
-		Payment.setLayout(null);
-		Payment.setBounds(70,100, 600, 600);
-		Payment.setBackground(Color.white);
-		Payment.setVisible(false);
-		Payment.setEnabled(false);
-		Payment.add(PaymentPanelTop());
-		return Payment;
-		
-	}
-	
-	private JPanel CouponPanelTop() {
-		smallTop.setLayout(null);
-		smallTop.setBounds(0,0, 600, 90);
-		smallTop.setBackground(new Color(255, 102, 102));
-		JLabel lblNewLabel1 = new JLabel("Easy Kiosk");
-		lblNewLabel1.setFont(new Font("맑은 고딕", Font.BOLD, 24));
-		lblNewLabel1.setForeground(new Color(255, 255, 255));
-		lblNewLabel1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel1.setBounds(0, 5, 600, 26);
-		JLabel lblNewLabel1_1 = new JLabel("핸드폰 번호와 비밀번호를 입력하세요.");
-		lblNewLabel1_1.setFont(new Font("맑은 고딕", Font.BOLD, 24));
-		lblNewLabel1_1.setForeground(new Color(255, 255, 255));
-		lblNewLabel1_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel1_1.setBounds(0, 31, 600, 57);
-		smallTop.add(lblNewLabel1);
-		smallTop.add(lblNewLabel1_1);
-		return smallTop;
-	}
-	
 
-	private JPanel PaymentPanelTop() {
-		smallTop2.setLayout(null);
-		smallTop2.setBounds(0,0, 600, 90);
-		smallTop2.setBackground(new Color(255, 102, 102));
-		JLabel lblNewLabel1 = new JLabel("Easy Kiosk");
-		lblNewLabel1.setFont(new Font("맑은 고딕", Font.BOLD, 24));
-		lblNewLabel1.setForeground(new Color(255, 255, 255));
-		lblNewLabel1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel1.setBounds(0, 5, 600, 26);
-		JLabel lblNewLabel1_1 = new JLabel("포인트를 적립하시겠습니까");
-		lblNewLabel1_1.setFont(new Font("맑은 고딕", Font.BOLD, 24));
-		lblNewLabel1_1.setForeground(new Color(255, 255, 255));
-		lblNewLabel1_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel1_1.setBounds(0, 31, 600, 57);
-		smallTop2.add(lblNewLabel1);
-		smallTop2.add(lblNewLabel1_1);
-		return smallTop2;
-	}
 }

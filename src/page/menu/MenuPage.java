@@ -19,6 +19,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class MenuPage extends KioskPage {
 
@@ -401,9 +403,10 @@ public class MenuPage extends KioskPage {
                 if (getIndex(L1.getText()) == -1 && CheckList.size() < 4) {
                     CheckList.add(p);
                     cart.put(p, 1);
+                }else if(CheckList.size()==4) {
+                	JOptionPane4MAX();
                 }
-                System.out.println(cart.size());
-                System.out.println(cart.get(p));
+
                 viewcart();
 
             }
@@ -453,10 +456,7 @@ public class MenuPage extends KioskPage {
                 menulist_3.setText(CheckList.get(k).getProd_name());
                 menucount_3.setText(cart.get(CheckList.get(k)) + "");
                 k++;
-            case 4:
-                if (k == i)
-                    break;
-                //여기에 최대4개만 고를수있다고 팝업 띄우면 좋겠음
+           
         }
         Totalamount.setText(totalamount() + "");
     }
@@ -482,7 +482,6 @@ public class MenuPage extends KioskPage {
             			loadPayPage();
             		}            		
 				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
             }
@@ -524,12 +523,10 @@ public class MenuPage extends KioskPage {
 
         panel_0.add(PlusOnList_0);
 
-//		JPanel panel_1 = new JPanel();
         panel_1.setLayout(null);
         panel_1.setBounds(6, 43, 609, 37);
         Bottompanel.add(panel_1);
 
-//		JLabel menucount_1 = new JLabel("1");
         menucount_1.setHorizontalAlignment(SwingConstants.CENTER);
         menucount_1.setFont(new Font("Lucida Grande", Font.PLAIN, 13));
         menucount_1.setBounds(444, 11, 62, 16);
@@ -561,12 +558,10 @@ public class MenuPage extends KioskPage {
         PlusOnList_1.setBounds(506, 6, 29, 29);
         panel_1.add(PlusOnList_1);
 
-//		JPanel panel_2 = new JPanel();
         panel_2.setLayout(null);
         panel_2.setBounds(6, 80, 609, 37);
         Bottompanel.add(panel_2);
 
-//		JLabel menucount_2 = new JLabel("1");
         menucount_2.setHorizontalAlignment(SwingConstants.CENTER);
         menucount_2.setFont(new Font("Lucida Grande", Font.PLAIN, 13));
         menucount_2.setBounds(444, 11, 62, 16);
@@ -598,12 +593,10 @@ public class MenuPage extends KioskPage {
         PlusOnList_2.setBounds(506, 6, 29, 29);
         panel_2.add(PlusOnList_2);
 
-//		JPanel panel_3 = new JPanel();
         panel_3.setLayout(null);
         panel_3.setBounds(6, 117, 609, 37);
         Bottompanel.add(panel_3);
 
-//		JLabel menucount_3 = new JLabel("1");
         menucount_3.setHorizontalAlignment(SwingConstants.CENTER);
         menucount_3.setFont(new Font("Lucida Grande", Font.PLAIN, 13));
         menucount_3.setBounds(444, 11, 62, 16);
@@ -644,11 +637,22 @@ public class MenuPage extends KioskPage {
 
     // 홈버튼 누르면 주문내역 초기화
     private void setLayout() {
-        this.getHomeBtn().addActionListener((e) -> KioskPage.getOrderData().clearMenu());
+    	this.getHomeBtn();
+    	getHomeBtn().addActionListener(new ActionListener() {
+    	public void actionPerformed(ActionEvent e) {
+    		CheckList = new ArrayList<>();
+    		cart = new HashMap<>();
+    		}
+    });
+//        this.getHomeBtn().addActionListener((e) -> KioskPage.getOrderData().clearMenu());
     }
     // 장바구니에 아무것도 없을시 에러창 팝업
     public void JOptionPaneEx() {
 		JOptionPane.showMessageDialog(this, "메뉴를 추가해주십시오.", "Message", JOptionPane.ERROR_MESSAGE);
+
+    }
+    public void JOptionPane4MAX() {
+		JOptionPane.showMessageDialog(this, "메뉴는 최대 4종류 선택가능합니다.", "Message", JOptionPane.ERROR_MESSAGE);
 
     }
 }
