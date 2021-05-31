@@ -29,8 +29,6 @@ public class StartPage extends KioskPage {
 
 	public StartPage() {
 		super(new PageData.Builder().nextPageType(PageType.START_PAGE).build());
-		CheckList = new ArrayList<>();
-		cart = new HashMap<>();
 		initPage();
 		setNextPage();
 	}

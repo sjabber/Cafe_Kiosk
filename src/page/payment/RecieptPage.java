@@ -15,6 +15,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class RecieptPage extends KioskPage {
 
@@ -41,6 +43,8 @@ public class RecieptPage extends KioskPage {
         mainFrame = new MainFrame();
         mainFrame.setBounds(100, 100, 768, 850);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        CheckList = new ArrayList<>();
+        cart = new HashMap<>();
         initPage();
     }
 
