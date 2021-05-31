@@ -2,10 +2,15 @@ package page.start;
 
 import java.awt.*;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+
+import DB.Product;
 import page.KioskPage;
 import page.PageData;
 import page.PageType;
@@ -24,11 +29,14 @@ public class StartPage extends KioskPage {
 
 	public StartPage() {
 		super(new PageData.Builder().nextPageType(PageType.START_PAGE).build());
+		CheckList = new ArrayList<>();
+		cart = new HashMap<>();
 		initPage();
 		setNextPage();
 	}
 
 	private void initPage() {
+
 		this.add(initTopPanel());
 		this.add(initMiddlePanel());
 	}
