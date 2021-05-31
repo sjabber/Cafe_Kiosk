@@ -8,11 +8,13 @@ import page.Button.RightButton;
 import page.KioskPage;
 import page.PageData;
 import page.PageType;
+import util.KioskAudioPlayer;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 public class CreditCardPage extends KioskPage {
 
@@ -28,6 +30,7 @@ public class CreditCardPage extends KioskPage {
     private final JLabel lblNewLabel_1 = new JLabel("카드 결제");
     private final JLabel lblNewLabel_2 = new JLabel("다음 그림과 같이 신용/체크카드를 넣어주세요");
     private final JLabel totalPriceLabel = new JLabel("총 결제 금액 : ");
+    private final JLabel priceLabel = new JLabel("");
     private final JLabel lblNewLabel_4 = new JLabel("할부 개월");
     private final JPanel panel_2 = new JPanel();
     private final JPanel panel_3 = new JPanel();
@@ -109,6 +112,17 @@ public class CreditCardPage extends KioskPage {
         cancelButton.setForeground(Color.WHITE);
         cancelButton.setBackground(Color.BLACK);
         cancelButton.setBounds(119, 596, 146, 94);
+        cancelButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                try {
+                    loadPaymentPage();
+                } catch (SQLException exception) {
+                    exception.printStackTrace();
+                }
+            }
+        });
+
         panel.add(cancelButton);
 
         JButton verifyButton = new JButton("승인 요청");
@@ -116,7 +130,21 @@ public class CreditCardPage extends KioskPage {
         verifyButton.setForeground(Color.WHITE);
         verifyButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                priceLabel.setText(totalamount() + " 원");
                 cardNumberLabel.setText("카드 번호 : 110 - XXX - XXXXXX");
+
+                KioskAudioPlayer.newInstance("sound/ing.wav").play();
+                try {
+                    Thread.sleep(5000);
+                } catch (InterruptedException e1) {
+                    e1.printStackTrace();
+                } finally {
+                    try {
+                        CreditCardPage.this.loadNextPage();
+                    } catch (SQLException exception) {
+                        exception.printStackTrace();
+                    }
+                }
             }
         });
         verifyButton.setBackground(Color.RED);
@@ -126,12 +154,18 @@ public class CreditCardPage extends KioskPage {
 
         panel.add(panel_2);
         panel_2.setLayout(null);
-        totalPriceLabel.setBounds(0, 8, 565, 35);
+        totalPriceLabel.setBounds(0, 8, 206, 35);
         panel_2.add(totalPriceLabel);
         totalPriceLabel.setFont(new Font("맑은 고딕", Font.PLAIN, 30));
         totalPriceLabel.setHorizontalAlignment(SwingConstants.LEFT);
-        panel_3.setBounds(50, 511, 565, 49);
 
+        priceLabel.setForeground(Color.RED);
+        priceLabel.setFont(new Font("맑은 고딕", Font.PLAIN, 30));
+        priceLabel.setBounds(218, 8, 206, 35);
+        panel_2.add(priceLabel);
+
+
+        panel_3.setBounds(50, 511, 565, 49);
         panel.add(panel_3);
         panel_3.setLayout(null);
         cardNumberLabel.setFont(new Font("맑은 고딕", Font.PLAIN, 30));
