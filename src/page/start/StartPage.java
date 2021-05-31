@@ -28,9 +28,10 @@ public class StartPage extends KioskPage {
 	};
 
 	public StartPage() {
-		super(new PageData.Builder().nextPageType(PageType.START_PAGE).build());
+		super(new PageData.Builder().nextPageType(PageType.MENU_PAGE).build());
 		initPage();
 		setNextPage();
+
 	}
 
 	private void initPage() {

@@ -100,7 +100,7 @@ public class KioskPage extends JPanel {
             @Override
             public void mousePressed(MouseEvent e) {
                 if (onClickListener != null) {
-                    //System.out.println("클릭 되었음.");
+                   
                     onClickListener.onClick();
                 }
             }
@@ -130,7 +130,6 @@ public class KioskPage extends JPanel {
         int quantity = Integer.parseInt(L1.getText());
         quantity = quantity - 1;
         keys = cart.keySet();
-        System.out.println(cart);
 
 
         if (quantity == 0) {

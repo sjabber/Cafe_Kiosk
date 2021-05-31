@@ -14,6 +14,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class CreditCardPage extends KioskPage {
@@ -116,7 +117,7 @@ public class CreditCardPage extends KioskPage {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 try {
-                    loadPaymentPage();
+                    loadPayPage();
                 } catch (SQLException exception) {
                     exception.printStackTrace();
                 }
@@ -138,6 +139,7 @@ public class CreditCardPage extends KioskPage {
                 } finally {
                     try {
                         CreditCardPage.this.loadNextPage();
+                        StampUpdate(PaymentPage.UserStamp+totalquantity, PaymentPage.ID);
                     } catch (SQLException exception) {
                         exception.printStackTrace();
                     }
@@ -178,4 +180,8 @@ public class CreditCardPage extends KioskPage {
         panel.add(imagePanel);
         return Middle;
     }
+    private void StampUpdate(int stamp, String ID) throws SQLException{
+        String query1="UPDATE user_info SET user_Stamp="+stamp+" WHERE user_ID='"+ID+"';";
+        ConnectDB.statement.executeUpdate(query1);
+	}
 }
