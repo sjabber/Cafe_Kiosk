@@ -5,14 +5,17 @@ import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import DB.ConnectDB;
 import Main.MainFrame;
 import page.KioskPage;
 import page.PageData;
@@ -28,7 +31,7 @@ public class CouponPage extends KioskPage{
     private JPanel Middle_PW = new JPanel();
     private JPanel Bottom_Final = new JPanel();
     private JPanel Bottom_lack= new JPanel();
-
+    private int input=0;
     
 
 	private JLabel PhoneNumberResult;
@@ -38,6 +41,11 @@ public class CouponPage extends KioskPage{
 	public String Password="";
 	private int NumberCount=0;
 	private int PasswordCount=0;
+	ConnectDB DB = new ConnectDB();
+	private String query = "SELECT user_Pnum, user_ID, user_PW, user_Stamp FROM user_info WHERE user_Pnum is not null";
+	private String ID="";
+    private String PW="";
+    private int UserStamp=0;
 	
 	public CouponPage() throws SQLException  {
         super(new PageData.Builder().previousPageType(PageType.PAY_PAGE).build());
@@ -246,12 +254,13 @@ public class CouponPage extends KioskPage{
             		System.out.println(PhoneNumberResult.getText());
                 	System.out.println(Password);
                 	
-                	//여기서 디비에 접근해서 스탬프수량확인;사용가능여부 체크해야함
-                	if(true) {
-                		Bottom_Final.setVisible(true);
-                	}else if (false) {
-//                		Bottom_lack.setVisible(true);
-                	}
+                	//아이디체크
+                	try {
+						DateIDCheck(query,DB);
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
                 	
                 	
             	}else {
@@ -266,6 +275,53 @@ public class CouponPage extends KioskPage{
         });
 		return btn;
 	}
+	
+	private void DateIDCheck(String query, ConnectDB db) throws SQLException{
+        ResultSet rs = db.statement.executeQuery(query);
+        while(rs.next()) {
+        	String tmp=rs.getString("user_ID");
+        	if(PhoneNumberResult.getText().equals(tmp)) {
+        		ID=rs.getString("user_ID");
+            	PW=rs.getString("user_PW");
+            	UserStamp=rs.getInt("user_Stamp");
+            }
+        }
+        //끝까지 돌렸을떄 해당 핸드폰번호가 없으면
+        if(PhoneNumberResult.getText().equals(ID)) {
+        	DataPWcheck(query,db);
+        }else {
+        	System.out.println(PhoneNumberResult.getText());
+        	System.out.println(ID);
+        	JOptionPaneID();
+        }
+	}
+	
+	private void DataPWcheck(String query, ConnectDB db) throws SQLException{
+        if(Password.equals(PW)) {
+        	//사용팝업
+        	CheckStamp(UserStamp);
+        }else {
+        	JOptionPanePW();
+        }
+	}
+	
+	private void CheckStamp(int userStamp) {
+		if(userStamp>=totalquantity*10) {
+			JOptionPaneConfirm();
+			if(input==0) {
+				JOptionPaneEND();
+				if(input==0) {
+					
+				}
+			}
+			
+		}else {
+			JOptionPaneLack();
+			System.out.println("불충분");
+
+		}
+	}
+	
 	private NumberButton BackTOPayPageButton(int x, int y, String k) {
         NumberButton btn = new NumberButton(k);
         btn.setBackground(Color.white);
@@ -357,5 +413,48 @@ public class CouponPage extends KioskPage{
 		Bottom_lack.setVisible(false);
 		return Bottom_lack;
 	}
+	public void JOptionPaneID() {
+		JOptionPane.showMessageDialog(this, "핸드폰 번호를 확인하시오.", "Message", JOptionPane.ERROR_MESSAGE);
+
+    }
+	public void JOptionPanePW() {
+		JOptionPane.showMessageDialog(this, "비밀번호를 확인하시오.", "Message", JOptionPane.ERROR_MESSAGE);
+
+    }
+	public void JOptionPaneLack() {
+		JOptionPane.showConfirmDialog(null, 
+	            "스탬프가 부족하여 사용할 수 없습니다. (현재보유스탬프 : "+UserStamp+"개)", "실패", JOptionPane.DEFAULT_OPTION);
+		input = JOptionPane.showConfirmDialog(null, 
+	            "스탬프가 부족하여 사용할 수 없습니다. "+"(현재보유스탬프 : "+UserStamp+"개)", "실패", JOptionPane.DEFAULT_OPTION);
+		//input 0 => OK
+    }
+	public void JOptionPaneConfirm() {
+		JOptionPane.showConfirmDialog(null, 
+	            "스탬프를 사용하여 구매하시겠습니까? (현재보유스탬프 : "+UserStamp+"개)", "확인", 
+	            JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
+		
+		input = JOptionPane.showConfirmDialog(null, 
+				 "스탬프를 사용하여 구매하시겠습니까? (현재보유스탬프 : "+UserStamp+"개)", "확인", 
+		            JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
+		//input 0 => OK , 2 => CANCEL
+    }
+	public void JOptionPaneBill() {
+		JOptionPane.showConfirmDialog(null, 
+	            "구매가 완료되었습니다. 영수증을 ? (현재보유스탬프 : "+UserStamp+"개)", "확인", 
+	            JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
+		
+		input = JOptionPane.showConfirmDialog(null, 
+	            "구매가 완료되었습니다. 영수증을 ? (현재보유스탬프 : "+UserStamp+"개)", "확인", 
+		            JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
+		//input 0 => OK , 2 => CANCEL
+    }
 	
+	public void JOptionPaneEND() {
+		input = JOptionPane.showConfirmDialog(null, 
+                "구매가 완료되었습니다.", "완료", JOptionPane.DEFAULT_OPTION);
+		JOptionPane.showConfirmDialog(null, 
+                "구매가 완료되었습니다.", "완료", JOptionPane.DEFAULT_OPTION);
+		
+		//input 0 => OK
+    }
 }

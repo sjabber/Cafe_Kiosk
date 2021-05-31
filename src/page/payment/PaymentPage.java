@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
@@ -40,7 +41,12 @@ public class PaymentPage extends KioskPage{
 	private JLabel lblNewLabel_1;
 	private String USER_INFO=""; //커피 구매시 스탬프 증가시켜줄 유저정보 스트링
 	private String query = "SELECT user_Pnum, user_ID, user_PW, user_Stamp FROM user_info WHERE user_Pnum is not null";
-    public PaymentPage() throws SQLException  {
+    private String ID="";
+    private String PW="";
+    private int UserStamp=0;
+
+	
+	public PaymentPage() throws SQLException  {
         super(new PageData.Builder().previousPageType(PageType.PAY_PAGE).build());
         mainFrame = new MainFrame();
         mainFrame.setBounds(100, 100, 768, 850);
@@ -195,20 +201,25 @@ public class PaymentPage extends KioskPage{
 	
 	private void DataIDcheck(String query, ConnectDB db) throws SQLException{
         ResultSet rs = db.statement.executeQuery(query);
-        String ID="";
         while(rs.next()) {
-            ID=rs.getString("user_ID");
+        	String tmp=rs.getString("user_ID");
             //디비에서 핸드폰번호와 맞는 정보를 매칭한다
-            if(PhoneNumberResult.getText().equals(ID)) {
+            if(PhoneNumberResult.getText().equals(tmp)) {
+            	ID=rs.getString("user_ID");
             	System.out.println("아이디확인");
+            	PW=rs.getString("user_PW");
             	DataPWcheck(query,db);
-            	break;
             }
+            break;
         }
         //끝까지 돌려서 데이터에 해당핸드폰번호가 없을시
         if(PhoneNumberResult.getText()!=ID) {
         	//데이터에 자동으로회원가입
         	CreateID(query, db);
+        	PointYes.setVisible(false);
+        	PayFinal.setVisible(true);
+    		lblNewLabel.setText("Easy Kiosk");
+    		lblNewLabel_1.setText("카드 결제");
         }
 	}
 	private void CreateID(String query, ConnectDB db) throws SQLException{
@@ -220,27 +231,23 @@ public class PaymentPage extends KioskPage{
         }
         lastNumber++;
         System.out.println(lastNumber);
-        String query2="INSERT INTO user_info (user_Pnum, user_ID, user_PW, user_Stamp) values ('"+lastNumber+"', '"+PhoneNumberResult+"', '"+Password+"', '0');";
+        //이부분 에러 확인
+        String query2="INSERT INTO user_info (user_Pnum, user_ID, user_PW, user_Stamp) values ('"+lastNumber+"', '"+PhoneNumberResult.getText()+"', '"+Password+"', '0');";
         ConnectDB.statement.executeUpdate(query2);
         System.out.println("회원가입완료");
 	}
 	
 	
 	private void DataPWcheck(String query, ConnectDB db) throws SQLException{
-        ResultSet rs = db.statement.executeQuery(query);
-        String PW="";
-        while(rs.next()) {
-            PW=rs.getString("user_PW");
-            //디비에서 핸드폰번호와 비밀번호를 매칭한다
-            if(Password.equals(PW)) {
-            	System.out.println("비밀번호확인");
-            	PointYes.setVisible(false);
-            	PayFinal.setVisible(true);
-	    		lblNewLabel.setText("Easy Kiosk");
-	    		lblNewLabel_1.setText("카드 결제");
-            	break;
-            }
-        }
+		 if(Password.equals(PW)) {
+         	System.out.println("비밀번호확인");
+         	PointYes.setVisible(false);
+         	PayFinal.setVisible(true);
+	    	lblNewLabel.setText("Easy Kiosk");
+	    	lblNewLabel_1.setText("카드 결제");
+	    	}else {
+	    		JOptionPanePW();
+	    	}
 	}
 	private NumberButton TextResetButton(int x, int y, String k) {
         NumberButton btn = new NumberButton(k);
@@ -410,5 +417,8 @@ public class PaymentPage extends KioskPage{
 
         return Bottom;
 	}
-    
+    public void JOptionPanePW() {
+		JOptionPane.showMessageDialog(this, "비밀번호를 확인하시오.", "Message", JOptionPane.ERROR_MESSAGE);
+
+    }
 }

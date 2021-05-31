@@ -48,7 +48,6 @@ public class PayPage extends KioskPage{
 	private String name="";
 	private String quantity="";
 	private String price="";
-	private int totalquantity=0;
 	private int TYPE=0;
 //	private Popup Po;
 //	private PopupFactory pf;

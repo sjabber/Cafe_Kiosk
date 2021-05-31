@@ -172,4 +172,6 @@ public class KioskPage extends JPanel {
     //매장에서먹을지 나가먹을지 결정하는 변수
     //1 = IN , 2 = OUT
    public static int InorOutNumber;
+   public static int totalquantity=0;
+
 }
