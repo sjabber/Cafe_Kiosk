@@ -20,7 +20,7 @@ public class StartPage extends KioskPage {
 			ImageIcon image = new ImageIcon("images/Main.PNG");
 			g.drawImage(image.getImage(), 0, 0, d.width, d.height, null);
 		}
-	};;
+	};
 
 	public StartPage() {
 		super(new PageData.Builder().nextPageType(PageType.START_PAGE).build());
