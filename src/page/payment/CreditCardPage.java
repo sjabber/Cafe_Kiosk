@@ -43,7 +43,7 @@ public class CreditCardPage extends KioskPage {
     };
 
     public CreditCardPage() {
-        super(new PageData.Builder().nextPageType(PageType.START_PAGE).previousPageType(PageType.PAYMENT_PAGE).build());
+        super(new PageData.Builder().previousPageType(PageType.PAYMENT_PAGE).build());
         frame = new MainFrame();
         frame.setVisible(true);
         frame.setBounds(100, 100, 768, 850);

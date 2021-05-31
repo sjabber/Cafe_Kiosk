@@ -305,13 +305,20 @@ public class CouponPage extends KioskPage{
         }
 	}
 	
-	private void CheckStamp(int userStamp) {
+	private void CheckStamp(int userStamp) throws SQLException {
 		if(userStamp>=totalquantity*10) {
 			JOptionPaneConfirm();
+			//스탬프사용하겠냐 => input 0 = ok , 2 = cancel;
 			if(input==0) {
-				JOptionPaneEND();
+				JOptionPaneBill();
+				//영수증 뽑겠냐 => input 0 = ok, 2 = cancel;
 				if(input==0) {
 					
+				}else if(input==2) {
+					JOptionPaneEND();
+					if(input==0){
+						loadStartPage();
+					}
 				}
 			}
 			
@@ -440,11 +447,11 @@ public class CouponPage extends KioskPage{
     }
 	public void JOptionPaneBill() {
 		JOptionPane.showConfirmDialog(null, 
-	            "구매가 완료되었습니다. 영수증을 ? (현재보유스탬프 : "+UserStamp+"개)", "확인", 
+	            "구매가 완료되었습니다. 영수증을 출력하시겠습니까? (현재보유스탬프 : "+UserStamp+"개)", "확인", 
 	            JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
 		
 		input = JOptionPane.showConfirmDialog(null, 
-	            "구매가 완료되었습니다. 영수증을 ? (현재보유스탬프 : "+UserStamp+"개)", "확인", 
+	            "구매가 완료되었습니다. 영수증을 출력하시겠습니까? (현재보유스탬프 : "+UserStamp+"개)", "확인", 
 		            JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
 		//input 0 => OK , 2 => CANCEL
     }

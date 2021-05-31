@@ -47,7 +47,7 @@ public class PaymentPage extends KioskPage{
 
 	
 	public PaymentPage() throws SQLException  {
-        super(new PageData.Builder().previousPageType(PageType.PAY_PAGE).build());
+        super(new PageData.Builder().nextPageType(PageType.CREDITCARD_PAGE).previousPageType(PageType.PAY_PAGE).build());
         mainFrame = new MainFrame();
         mainFrame.setBounds(100, 100, 768, 850);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -58,7 +58,7 @@ public class PaymentPage extends KioskPage{
         this.add(initTopPanel());
         this.add(initPointPanel());
         this.add(initPointYesPanel());
-        this.add(initPayFinalPanel());
+//        this.add(initPayFinalPanel());
 
         this.add(intiBottomPanel());
     }
@@ -90,10 +90,15 @@ public class PaymentPage extends KioskPage{
 	    JButton PointN=new JButton("NO");	
 	    PointN.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
-	    		Point.setVisible(false);
-	    		PayFinal.setVisible(true);
-	    		lblNewLabel.setText("Easy Kiosk");
-	    		lblNewLabel_1.setText("카드 결제");
+//	    		Point.setVisible(false);
+//	    		PayFinal.setVisible(true);
+	    		try {
+					loadCreditCardPage();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+
 	    	}
 	    });
 	    PointN.setBounds(370, 200, 200, 200);
@@ -216,10 +221,7 @@ public class PaymentPage extends KioskPage{
         if(PhoneNumberResult.getText()!=ID) {
         	//데이터에 자동으로회원가입
         	CreateID(query, db);
-        	PointYes.setVisible(false);
-        	PayFinal.setVisible(true);
-    		lblNewLabel.setText("Easy Kiosk");
-    		lblNewLabel_1.setText("카드 결제");
+        	loadCreditCardPage();
         }
 	}
 	private void CreateID(String query, ConnectDB db) throws SQLException{
@@ -241,10 +243,7 @@ public class PaymentPage extends KioskPage{
 	private void DataPWcheck(String query, ConnectDB db) throws SQLException{
 		 if(Password.equals(PW)) {
          	System.out.println("비밀번호확인");
-         	PointYes.setVisible(false);
-         	PayFinal.setVisible(true);
-	    	lblNewLabel.setText("Easy Kiosk");
-	    	lblNewLabel_1.setText("카드 결제");
+         	loadCreditCardPage();
 	    	}else {
 	    		JOptionPanePW();
 	    	}
@@ -382,15 +381,15 @@ public class PaymentPage extends KioskPage{
 	 총금액이랑 카드번호// 취소 승인요청 버튼 있는창
 	 * @return
 	 */
-	private JPanel initPayFinalPanel() {
-		PayFinal.setBounds(0, 100, 754, 500);
-		PayFinal.setLayout(null);
-		PayFinal.setBackground(Color.white);
-		
-		
-		PayFinal.setVisible(false);
-		return PayFinal;
-	}
+//	private JPanel initPayFinalPanel() {
+//		PayFinal.setBounds(0, 100, 754, 500);
+//		PayFinal.setLayout(null);
+//		PayFinal.setBackground(Color.white);
+//		
+//		
+//		PayFinal.setVisible(false);
+//		return PayFinal;
+//	}
 	private JPanel initTopPanel() {
 		Top.setLayout(null);
 		Top.setBounds(0, 0, 754, 94);
