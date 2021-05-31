@@ -51,7 +51,6 @@ public class PaymentPage extends KioskPage{
         mainFrame = new MainFrame();
         mainFrame.setBounds(100, 100, 768, 850);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		System.out.println("paymentPage 라능 ㅋㅋㅋㅋㅋㅋㅋ");
         initPage();
         }
     private void initPage() throws SQLException {
