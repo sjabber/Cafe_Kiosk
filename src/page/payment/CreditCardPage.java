@@ -16,7 +16,6 @@ import java.awt.event.ActionListener;
 
 public class CreditCardPage extends KioskPage {
 
-    private JFrame frame;
     private JPanel Top = new JPanel();
     private JPanel Middle = new JPanel();
 
@@ -44,10 +43,9 @@ public class CreditCardPage extends KioskPage {
 
     public CreditCardPage() {
         super(new PageData.Builder().previousPageType(PageType.PAYMENT_PAGE).build());
-        frame = new MainFrame();
-        frame.setVisible(true);
-        frame.setBounds(100, 100, 768, 850);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        mainFrame = new MainFrame();
+        mainFrame.setBounds(100, 100, 768, 850);
+        mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         initPage();
     }
 
@@ -74,13 +72,13 @@ public class CreditCardPage extends KioskPage {
     }
 
     private JPanel initMiddlePanel() {
-        Middle.setBounds(0, 94, 754, 566);
+        Middle.setBounds(0, 94, 754, 1000);
 
         Middle.setLayout(null);
 
         JPanel panel = new JPanel();
         panel.setBackground(Color.WHITE);
-        panel.setBounds(52, 103, 657, 700);
+        panel.setBounds(50, 5, 657, 700);
         Middle.add(panel);
         panel.setLayout(null);
         panel_1.setToolTipText("");

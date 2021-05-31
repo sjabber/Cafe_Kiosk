@@ -51,6 +51,7 @@ public class PaymentPage extends KioskPage{
         mainFrame = new MainFrame();
         mainFrame.setBounds(100, 100, 768, 850);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		System.out.println("paymentPage 라능 ㅋㅋㅋㅋㅋㅋㅋ");
         initPage();
         }
     private void initPage() throws SQLException {
@@ -81,7 +82,6 @@ public class PaymentPage extends KioskPage{
 	    		PointYes.setVisible(true);
 	    		lblNewLabel.setText("회원 정보");
 	    		lblNewLabel_1.setText("핸드폰 번호와 비밀번호를 입력하세요.");
-
     	   }
 	    });
 		PointY.setBounds(170, 200, 200, 200);
