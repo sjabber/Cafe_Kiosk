@@ -48,7 +48,7 @@ public class CouponPage extends KioskPage{
     private int UserStamp=0;
 	
 	public CouponPage() throws SQLException  {
-        super(new PageData.Builder().previousPageType(PageType.PAY_PAGE).build());
+        super(new PageData.Builder().nextPageType(PageType.START_PAGE).previousPageType(PageType.PAY_PAGE).build());
         mainFrame = new MainFrame();
         mainFrame.setBounds(100, 100, 768, 850);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -312,23 +312,36 @@ public class CouponPage extends KioskPage{
 			if(input==0) {
 				JOptionPaneBill();
 				//영수증 뽑겠냐 => input 0 = ok, 2 = cancel;
-				if(input==0) {
-					
-				}else if(input==2) {
-					JOptionPaneEND();
-					if(input==0){
-						loadStartPage();
-					}
-				}
+				JOptionPaneEND();
+				StampUpdate(UserStamp,DB);
+				PrintBill();
+				loadStartPage();
 			}
 			
 		}else {
 			JOptionPaneLack();
 			System.out.println("불충분");
+			loadPayPage();
 
 		}
 	}
+	private void PrintBill() {
+		for(int i=0;i<CheckList.size();i++) {
+			System.out.print(CheckList.get(i).getProd_name()+" "+CheckList.get(i).getProd_price()+"원 "+cart.get(CheckList.get(i))+"개"+"\n");
+		}
+		System.out.println("총 "+totalquantity+"개      "+"총 "+total+"원");
+		if(InorOutNumber==1) {
+			System.out.println("매장");
+		}else if(InorOutNumber==2) {
+			System.out.println("포장");
+		}
+	}
 	
+	private void StampUpdate(int Stamp,ConnectDB db) throws SQLException{
+        ResultSet rs = db.statement.executeQuery(query);
+        String query1="UPDATE user_info SET user_Stamp="+(UserStamp-(totalquantity*10))+" WHERE user_ID='"+ID+"';";
+        ConnectDB.statement.executeUpdate(query1);
+	}
 	private NumberButton BackTOPayPageButton(int x, int y, String k) {
         NumberButton btn = new NumberButton(k);
         btn.setBackground(Color.white);
@@ -429,16 +442,16 @@ public class CouponPage extends KioskPage{
 
     }
 	public void JOptionPaneLack() {
-		JOptionPane.showConfirmDialog(null, 
-	            "스탬프가 부족하여 사용할 수 없습니다. (현재보유스탬프 : "+UserStamp+"개)", "실패", JOptionPane.DEFAULT_OPTION);
+//		JOptionPane.showConfirmDialog(null, 
+//	            "스탬프가 부족하여 사용할 수 없습니다. (현재보유스탬프 : "+UserStamp+"개)", "실패", JOptionPane.DEFAULT_OPTION);
 		input = JOptionPane.showConfirmDialog(null, 
 	            "스탬프가 부족하여 사용할 수 없습니다. "+"(현재보유스탬프 : "+UserStamp+"개)", "실패", JOptionPane.DEFAULT_OPTION);
 		//input 0 => OK
     }
 	public void JOptionPaneConfirm() {
-		JOptionPane.showConfirmDialog(null, 
-	            "스탬프를 사용하여 구매하시겠습니까? (현재보유스탬프 : "+UserStamp+"개)", "확인", 
-	            JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
+//		JOptionPane.showConfirmDialog(null, 
+//	            "스탬프를 사용하여 구매하시겠습니까? (현재보유스탬프 : "+UserStamp+"개)", "확인", 
+//	            JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
 		
 		input = JOptionPane.showConfirmDialog(null, 
 				 "스탬프를 사용하여 구매하시겠습니까? (현재보유스탬프 : "+UserStamp+"개)", "확인", 
@@ -446,9 +459,9 @@ public class CouponPage extends KioskPage{
 		//input 0 => OK , 2 => CANCEL
     }
 	public void JOptionPaneBill() {
-		JOptionPane.showConfirmDialog(null, 
-	            "구매가 완료되었습니다. 영수증을 출력하시겠습니까? (현재보유스탬프 : "+UserStamp+"개)", "확인", 
-	            JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
+//		JOptionPane.showConfirmDialog(null, 
+//	            "구매가 완료되었습니다. 영수증을 출력하시겠습니까? (현재보유스탬프 : "+UserStamp+"개)", "확인", 
+//	            JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
 		
 		input = JOptionPane.showConfirmDialog(null, 
 	            "구매가 완료되었습니다. 영수증을 출력하시겠습니까? (현재보유스탬프 : "+UserStamp+"개)", "확인", 
@@ -459,8 +472,8 @@ public class CouponPage extends KioskPage{
 	public void JOptionPaneEND() {
 		input = JOptionPane.showConfirmDialog(null, 
                 "구매가 완료되었습니다.", "완료", JOptionPane.DEFAULT_OPTION);
-		JOptionPane.showConfirmDialog(null, 
-                "구매가 완료되었습니다.", "완료", JOptionPane.DEFAULT_OPTION);
+//		JOptionPane.showConfirmDialog(null, 
+//                "구매가 완료되었습니다.", "완료", JOptionPane.DEFAULT_OPTION);
 		
 		//input 0 => OK
     }

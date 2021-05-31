@@ -165,7 +165,7 @@ public class KioskPage extends JPanel {
 
     public int totalamount() {
         keys = cart.keySet();
-        int total = 0;
+        total = 0;
         for (Product p : keys) {
             total += p.getProd_price() * cart.get(p);
         }
@@ -175,6 +175,7 @@ public class KioskPage extends JPanel {
     //매장에서먹을지 나가먹을지 결정하는 변수
     //1 = IN , 2 = OUT
    public static int InorOutNumber;
+   public static int total=0;
    public static int totalquantity=0;
 
 }
