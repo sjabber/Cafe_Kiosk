@@ -190,15 +190,19 @@ public class CouponPage extends KioskPage{
         btn.setFocusPainted(false);
         btn.setBorderPainted(false);
         btn.setBounds(x, y, 80, 80);
-        btn.setText(k+"");
+        btn.setText("비밀번호입력");
         
         btn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             	//TYPE==0 핸드폰번호입력 /  TYPE==1 비밀번호입력
             	if(TYPE==0) {
             		TYPE=1;
+                    btn.setText("휴대폰번호입력");
+
             	}else if(TYPE==1) {
             		TYPE=0;
+                    btn.setText("비밀번호입력");
+
             	}
             }
         });
