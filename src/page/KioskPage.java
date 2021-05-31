@@ -57,7 +57,10 @@ public class KioskPage extends JPanel {
     protected static OrderData getOrderData() {
         return orderData;
     }
-
+    protected void loadCreditCardPage() throws SQLException {
+    	PageType pageType = PageType.CREDITCARD_PAGE;
+        mainFrame.attachPage(pageType.createKioskPage());
+    }
     protected void loadNextPage() throws SQLException {
         PageType pageType = pageData.getNextPageType();
         if (pageType != PageType.EMPTY_PAGE) {
