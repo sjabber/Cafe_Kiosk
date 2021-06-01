@@ -504,9 +504,12 @@ public class MenuPage extends KioskPage {
                 viewcart();
             }
         });
-        MinusOnList_0.setBounds(415, 6, 29, 29);
-
+        MinusOnList_0.setBounds(410, 0, 42, 42);
+        MinusOnList_0.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+        MinusOnList_0.setForeground(Color.white);
+        MinusOnList_0.setBackground(Color.black);
         panel_0.add(MinusOnList_0);
+
 
         menulist_0 = new JTextField();
         menulist_0.setBounds(35, 0, 351, 37);
@@ -519,7 +522,10 @@ public class MenuPage extends KioskPage {
                 Totalamount.setText(totalamount() + "");
             }
         });
-        PlusOnList_0.setBounds(506, 6, 29, 29);
+        PlusOnList_0.setBounds(506, 0, 42, 42);
+        PlusOnList_0.setForeground(Color.white);
+        PlusOnList_0.setBackground(Color.black);
+
 
         panel_0.add(PlusOnList_0);
 
@@ -528,7 +534,7 @@ public class MenuPage extends KioskPage {
         Bottompanel.add(panel_1);
 
         menucount_1.setHorizontalAlignment(SwingConstants.CENTER);
-        menucount_1.setFont(new Font("Lucida Grande", Font.PLAIN, 13));
+        menucount_1.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
         menucount_1.setBounds(444, 11, 62, 16);
         panel_1.add(menucount_1);
 
@@ -563,7 +569,7 @@ public class MenuPage extends KioskPage {
         Bottompanel.add(panel_2);
 
         menucount_2.setHorizontalAlignment(SwingConstants.CENTER);
-        menucount_2.setFont(new Font("Lucida Grande", Font.PLAIN, 13));
+        menucount_2.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
         menucount_2.setBounds(444, 11, 62, 16);
         panel_2.add(menucount_2);
 
@@ -598,7 +604,7 @@ public class MenuPage extends KioskPage {
         Bottompanel.add(panel_3);
 
         menucount_3.setHorizontalAlignment(SwingConstants.CENTER);
-        menucount_3.setFont(new Font("Lucida Grande", Font.PLAIN, 13));
+        menucount_3.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
         menucount_3.setBounds(444, 11, 62, 16);
         panel_3.add(menucount_3);
 
