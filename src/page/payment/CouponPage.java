@@ -67,17 +67,18 @@ public class CouponPage extends KioskPage{
 	 * @return
 	 */
 	private JPanel Middle_ID() {
-		Middle_ID.setBounds(0, 100, 754, 500);
+		//밍 : height 500-> 800
+		Middle_ID.setBounds(0, 90, 754, 766);
 		Middle_ID.setLayout(null);
 		Middle_ID.setBackground(Color.white);
-		PhoneNumberResult = new JLabel("핸드폰 번호");
-		PhoneNumberResult.setFont(new Font("맑은 고딕", Font.PLAIN, 40));
+		PhoneNumberResult = new JLabel("휴대폰 번호를 입력하세요.");
+		PhoneNumberResult.setFont(new Font("맑은 고딕", Font.PLAIN, 35));
 		PhoneNumberResult.setHorizontalAlignment(SwingConstants.CENTER);
-		PhoneNumberResult.setBounds(10, 30, 734, 40);
-		PasswordInfo = new JLabel("비밀번호");
-		PasswordInfo.setFont(new Font("맑은 고딕", Font.PLAIN, 30));
+		PhoneNumberResult.setBounds(10, 50, 734, 40);
+		PasswordInfo = new JLabel("비밀번호 네 자리를 입력하세요.");
+		PasswordInfo.setFont(new Font("맑은 고딕", Font.PLAIN, 20));
 		PasswordInfo.setHorizontalAlignment(SwingConstants.CENTER);
-		PasswordInfo.setBounds(10, 80, 734, 40);
+		PasswordInfo.setBounds(10, 90, 734, 40);
 		Middle_ID.add(PhoneNumberResult);
 		Middle_ID.add(PasswordInfo);
 		
@@ -91,19 +92,27 @@ public class CouponPage extends KioskPage{
 				i=0;
 				j++;
 			}
-			int x=120+(80*i);
-			int y=160+(80*j);
+
+			//ald : x 120 -> 215 ->257
+			int x=257+(80*i);
+			//ald : y 160 -> 218
+			int y=218+(80*j);
 			Middle_ID.add(ProductButton(x,y,k));
 			i++;
 			count++;
 		}
-		Middle_ID.add(Product010Button(120, 400, "010"));
-		Middle_ID.add(ProductButton(200, 400, 0));
-		Middle_ID.add(DeleteLastOneButton(280, 400, "del"));
-		Middle_ID.add(TextResetButton(360, 240, "초기화"));
-		Middle_ID.add(OKButton(360, 320, "확인"));
-		Middle_ID.add(BackTOPayPageButton(360, 400, "취소"));
-		Middle_ID.add(SwitchButton(360, 160,"번호/비번"));
+		//ald : x +95
+		//ald : y +58
+		Middle_ID.add(Product010Button(257, 458, "010"));
+		Middle_ID.add(ProductButton(337, 458, 0));
+		Middle_ID.add(DeleteLastOneButton(417, 458, "del"));
+
+		Middle_ID.add(SwitchButton(257, 170,"번호/비번"));
+		Middle_ID.add(TextResetButton(397, 170, "초기화"));
+
+		Middle_ID.add(OKButton(257, 538, "확인"));
+		Middle_ID.add(BackTOPayPageButton(257, 588, "취소"));
+
 
 		return Middle_ID;
 	}
@@ -111,6 +120,7 @@ public class CouponPage extends KioskPage{
 	//버튼디자인 수정 필요
 	private NumberButton ProductButton(int x, int y, int k) {
         NumberButton btn = new NumberButton(k);
+        btn.setFont(new Font("맑은 고딕", Font.PLAIN, 21));
         btn.setBackground(Color.white);
         btn.setFocusPainted(false);
         btn.setBorderPainted(false);
@@ -121,7 +131,7 @@ public class CouponPage extends KioskPage{
             public void actionPerformed(ActionEvent e) {
             	//TYPE==0 핸드폰번호입력 /  TYPE==1 비밀번호입력
             	if(TYPE==0&&NumberCount<11) {
-            		if(PhoneNumberResult.getText().equals("핸드폰 번호")) {
+            		if(PhoneNumberResult.getText().equals("휴대폰 번호를 입력하세요.")) {
             			PhoneNumberResult.setText("");
             		}
             		PhoneNumberResult.setText(PhoneNumberResult.getText()+btn.getText());
@@ -131,7 +141,7 @@ public class CouponPage extends KioskPage{
             		}
             			
             	}else if(TYPE==1&&PasswordCount<4) {
-            		if(PasswordInfo.getText().equals("비밀번호")) {
+            		if(PasswordInfo.getText().equals("비밀번호 네 자리를 입력하세요.")) {
             			PasswordInfo.setText("");
             		}
             		Password+=btn.getText();
@@ -146,6 +156,7 @@ public class CouponPage extends KioskPage{
 	
 	private NumberButton Product010Button(int x, int y, String k) {
         NumberButton btn = new NumberButton(k);
+		btn.setFont(new Font("맑은 고딕", Font.PLAIN, 21));
         btn.setBackground(Color.white);
         btn.setFocusPainted(false);
         btn.setBorderPainted(false);
@@ -165,6 +176,7 @@ public class CouponPage extends KioskPage{
 	//텍스트명 수정해야함
 	private NumberButton DeleteLastOneButton(int x, int y, String k) {
         NumberButton btn = new NumberButton(k);
+		btn.setFont(new Font("맑은 고딕", Font.PLAIN, 21));
         btn.setBackground(Color.white);
         btn.setFocusPainted(false);
         btn.setBorderPainted(false);
@@ -196,10 +208,13 @@ public class CouponPage extends KioskPage{
 	}
 	private NumberButton SwitchButton(int x, int y, String k) {
         NumberButton btn = new NumberButton(k);
-        btn.setBackground(Color.white);
+        btn.setBackground(new Color(255, 102, 102));
+		btn.setFont(new Font("맑은 고딕", Font.PLAIN, 21));
+
         btn.setFocusPainted(false);
         btn.setBorderPainted(false);
-        btn.setBounds(x, y, 80, 80);
+        btn.setBounds(x, y, 140, 40);
+        btn.setForeground(Color.white);
         btn.setText("비밀번호입력");
         
         btn.addActionListener(new ActionListener() {
@@ -221,10 +236,12 @@ public class CouponPage extends KioskPage{
 	
 	private NumberButton TextResetButton(int x, int y, String k) {
         NumberButton btn = new NumberButton(k);
-        btn.setBackground(Color.white);
+        btn.setBackground(Color.black);
+        btn.setForeground(Color.white);
+		btn.setFont(new Font("맑은 고딕", Font.PLAIN, 21));
         btn.setFocusPainted(false);
         btn.setBorderPainted(false);
-        btn.setBounds(x, y, 80, 80);
+        btn.setBounds(x, y, 90, 40);
         btn.setText(k+"");
         
         btn.addActionListener(new ActionListener() {
@@ -242,10 +259,12 @@ public class CouponPage extends KioskPage{
 	}
 	private NumberButton OKButton(int x, int y, String k) {
         NumberButton btn = new NumberButton(k);
-        btn.setBackground(Color.white);
+        btn.setBackground(new Color(255, 102, 102));
+		btn.setFont(new Font("맑은 고딕", Font.PLAIN, 21));
+		btn.setForeground(Color.white);
         btn.setFocusPainted(false);
         btn.setBorderPainted(false);
-        btn.setBounds(x, y, 80, 80);
+        btn.setBounds(x, y, 240, 40);
         btn.setText(k+"");
         
         btn.addActionListener(new ActionListener() {
@@ -292,8 +311,6 @@ public class CouponPage extends KioskPage{
         if(PhoneNumberResult.getText().equals(ID)) {
         	DataPWcheck(query,db);
         }else {
-        	System.out.println(PhoneNumberResult.getText());
-        	System.out.println(ID);
         	JOptionPaneID();
         }
 	}
@@ -318,8 +335,6 @@ public class CouponPage extends KioskPage{
 				StampUpdate(UserStamp,DB);
 				PrintBill();
 				loadStartPage();
-				CheckList = new ArrayList<>();
-				cart = new HashMap<>();
 			}
 			
 		}else {
@@ -333,24 +348,29 @@ public class CouponPage extends KioskPage{
 		for(int i=0;i<CheckList.size();i++) {
 			System.out.print(CheckList.get(i).getProd_name()+" "+CheckList.get(i).getProd_price()+"원 "+cart.get(CheckList.get(i))+"개"+"\n");
 		}
-		System.out.println("총 "+totalquantity+"개      "+"총 "+totalamount()+"원");
+		System.out.println("총 "+totalquantity+"개      "+"총 "+total+"원");
 		if(InorOutNumber==1) {
 			System.out.println("매장");
 		}else if(InorOutNumber==2) {
 			System.out.println("포장");
 		}
+		CheckList = new ArrayList<>();
+		cart = new HashMap<>();
 	}
 	
 	private void StampUpdate(int Stamp,ConnectDB db) throws SQLException{
+        ResultSet rs = db.statement.executeQuery(query);
         String query1="UPDATE user_info SET user_Stamp="+(UserStamp-(totalquantity*10))+" WHERE user_ID='"+ID+"';";
         ConnectDB.statement.executeUpdate(query1);
 	}
 	private NumberButton BackTOPayPageButton(int x, int y, String k) {
         NumberButton btn = new NumberButton(k);
-        btn.setBackground(Color.white);
+        btn.setBackground(Color.black);
+        btn.setForeground(Color.white);
+		btn.setFont(new Font("맑은 고딕", Font.PLAIN, 21));
         btn.setFocusPainted(false);
         btn.setBorderPainted(false);
-        btn.setBounds(x, y, 80, 80);
+        btn.setBounds(x, y, 240, 40);
         btn.setText(k+"");
         
         btn.addActionListener(new ActionListener() {
@@ -374,14 +394,14 @@ public class CouponPage extends KioskPage{
 		lblNewLabel.setFont(new Font("맑은 고딕", Font.BOLD, 24));
 		lblNewLabel.setForeground(new Color(255, 255, 255));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(0, 5, 764, 26);
-		JLabel lblNewLabel_1 = new JLabel("핸드폰 번호와 비밀번호 4자리를 입력하세요");
-		lblNewLabel_1.setFont(new Font("맑은 고딕", Font.BOLD, 24));
-		lblNewLabel_1.setForeground(new Color(255, 255, 255));
-		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1.setBounds(0, 31, 764, 57);
+		lblNewLabel.setBounds(0, 35, 764, 26);
+//		JLabel lblNewLabel_1 = new JLabel("핸드폰 번호와 비밀번호 4자리를 입력하세요");
+//		lblNewLabel_1.setFont(new Font("맑은 고딕", Font.BOLD, 24));
+//		lblNewLabel_1.setForeground(new Color(255, 255, 255));
+//		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
+//		lblNewLabel_1.setBounds(0, 31, 764, 57);
 		Top.add(lblNewLabel);
-		Top.add(lblNewLabel_1);
+//		Top.add(lblNewLabel_1);
 	
 		return Top;
 	}
@@ -410,7 +430,7 @@ public class CouponPage extends KioskPage{
 	 */
 	private JPanel Bottom_FinalP() {
 		Bottom_Final.setLayout(null);
-		Bottom_Final.setBounds(100, 10, 550, 200);
+		Bottom_Final.setBounds(100, 10, 550, 100);
 		Bottom_Final.setBackground(Color.white);
 		JLabel lblNewLabel1 = new JLabel("연습");
 		lblNewLabel1.setFont(new Font("맑은 고딕", Font.BOLD, 24));
@@ -467,7 +487,7 @@ public class CouponPage extends KioskPage{
 //	            JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
 		
 		input = JOptionPane.showConfirmDialog(null, 
-	            "영수증을 출력하시겠습니까?", "확인", 
+	            "구매가 완료되었습니다. 영수증을 출력하시겠습니까?", "확인", 
 		            JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
 		//input 0 => OK , 2 => CANCEL
     }
@@ -481,3 +501,4 @@ public class CouponPage extends KioskPage{
 		//input 0 => OK
     }
 }
+
