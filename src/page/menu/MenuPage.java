@@ -480,6 +480,7 @@ public class MenuPage extends KioskPage {
         Totalamount.setText("0");
         Totalamount.setBounds(618, 6, 130, 45);
         Bottompanel.add(Totalamount);
+        Totalamount.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
         Totalamount.setColumns(10);
         btnNewButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -495,13 +496,16 @@ public class MenuPage extends KioskPage {
                 }
             }
         });
-        btnNewButton.setBounds(618, 53, 130, 103);
+        btnNewButton.setFont(new Font("Lucida Grande", Font.PLAIN, 30));
+        btnNewButton.setForeground(Color.white);
+        btnNewButton.setBackground(Color.red);
+        btnNewButton.setBounds(618, 53, 130, 90);
 
         Bottompanel.add(btnNewButton);
         panel_0.setBounds(6, 6, 609, 37);
 
         menucount_0.setHorizontalAlignment(SwingConstants.CENTER);
-        menucount_0.setFont(new Font("Lucida Grande", Font.PLAIN, 13));
+        menucount_0.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
         menucount_0.setBounds(444, 11, 62, 16);
         panel_0.add(menucount_0);
 
@@ -554,7 +558,10 @@ public class MenuPage extends KioskPage {
                 viewcart();
             }
         });
-        MinusOnList_1.setBounds(415, 6, 29, 29);
+        MinusOnList_1.setBounds(410, 0, 42, 42);
+        MinusOnList_1.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+        MinusOnList_1.setForeground(Color.white);
+        MinusOnList_1.setBackground(Color.black);
         panel_1.add(MinusOnList_1);
 
 
@@ -570,7 +577,9 @@ public class MenuPage extends KioskPage {
                 Totalamount.setText(totalamount() + "");
             }
         });
-        PlusOnList_1.setBounds(506, 6, 29, 29);
+        PlusOnList_1.setBounds(506, 0, 42, 42);
+        PlusOnList_1.setForeground(Color.white);
+        PlusOnList_1.setBackground(Color.black);
         panel_1.add(PlusOnList_1);
 
         panel_2.setLayout(null);
@@ -589,7 +598,10 @@ public class MenuPage extends KioskPage {
                 viewcart();
             }
         });
-        MinusOnList_2.setBounds(415, 6, 29, 29);
+        MinusOnList_2.setBounds(410, 0, 42, 42);
+        MinusOnList_2.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+        MinusOnList_2.setForeground(Color.white);
+        MinusOnList_2.setBackground(Color.black);
         panel_2.add(MinusOnList_2);
 
 
@@ -605,7 +617,9 @@ public class MenuPage extends KioskPage {
                 Totalamount.setText(totalamount() + "");
             }
         });
-        PlusOnList_2.setBounds(506, 6, 29, 29);
+        PlusOnList_2.setBounds(506, 0, 42, 42);
+        PlusOnList_2.setForeground(Color.white);
+        PlusOnList_2.setBackground(Color.black);
         panel_2.add(PlusOnList_2);
 
         panel_3.setLayout(null);
@@ -624,7 +638,10 @@ public class MenuPage extends KioskPage {
                 viewcart();
             }
         });
-        MinusOnList_3.setBounds(415, 6, 29, 29);
+        MinusOnList_3.setBounds(410, 0, 42, 42);
+        MinusOnList_3.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+        MinusOnList_3.setForeground(Color.white);
+        MinusOnList_3.setBackground(Color.black);
         panel_3.add(MinusOnList_3);
 
 
@@ -640,7 +657,9 @@ public class MenuPage extends KioskPage {
                 Totalamount.setText(totalamount() + "");
             }
         });
-        PlusOnList_3.setBounds(506, 6, 29, 29);
+        PlusOnList_3.setBounds(506, 0, 42, 42);
+        PlusOnList_3.setForeground(Color.white);
+        PlusOnList_3.setBackground(Color.black);
         panel_3.add(PlusOnList_3);
 
         viewcart();
