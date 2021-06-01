@@ -237,6 +237,7 @@ public class MenuPage extends KioskPage {
                     selectPanel.setBounds(57, 52, 110, 43);
                     Top.add(selectPanel);
 
+                    DB.dbClose();
                     break;
 
                 case 2: // 추천 메뉴
@@ -251,6 +252,8 @@ public class MenuPage extends KioskPage {
                     PanelSet(query, Middle, DB);
                     selectPanel.setBounds(175, 52, 110, 43);
                     Top.add(selectPanel);
+
+                    DB.dbClose();
                     break;
 
                 case 3: // 디저트
@@ -258,18 +261,24 @@ public class MenuPage extends KioskPage {
 
                     selectPanel.setBounds(292, 52, 100, 43);
                     Top.add(selectPanel);
+
+                    DB.dbClose();
                     break;
 
                 case 4: // 커피 (ICE)
                     PanelSet("SELECT Pnum, price, Pname FROM I_coffee WHERE price != 0", Middle, DB);
                     selectPanel.setBounds(410, 52, 130, 43);
                     Top.add(selectPanel);
+
+                    DB.dbClose();
                     break;
 
                 case 5: // 커피 (HOT)
                     PanelSet("SELECT Pnum, price, Pname FROM H_coffee WHERE price != 0", Middle, DB);
                     selectPanel.setBounds(550, 52, 130, 43);
                     Top.add(selectPanel);
+
+                    DB.dbClose();
                     break;
             }
         }
@@ -403,8 +412,8 @@ public class MenuPage extends KioskPage {
                 if (getIndex(L1.getText()) == -1 && CheckList.size() < 4) {
                     CheckList.add(p);
                     cart.put(p, 1);
-                }else if(CheckList.size()==4) {
-                	JOptionPane4MAX();
+                } else if (CheckList.size() == 4) {
+                    JOptionPane4MAX();
                 }
 
                 viewcart();
@@ -456,7 +465,7 @@ public class MenuPage extends KioskPage {
                 menulist_3.setText(CheckList.get(k).getProd_name());
                 menucount_3.setText(cart.get(CheckList.get(k)) + "");
                 k++;
-           
+
         }
         Totalamount.setText(totalamount() + "");
     }
@@ -474,16 +483,16 @@ public class MenuPage extends KioskPage {
         Totalamount.setColumns(10);
         btnNewButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-            	//장바구니가 비었으면 에러창 팝업, 담겨져있으면 결제창으로
-            	try {
-            		if(CheckList.size()==0) {
-            			JOptionPaneEx();
-            		}else if(CheckList.size()!=0){
-            			loadPayPage();
-            		}            		
-				} catch (SQLException e1) {
-					e1.printStackTrace();
-				}
+                //장바구니가 비었으면 에러창 팝업, 담겨져있으면 결제창으로
+                try {
+                    if (CheckList.size() == 0) {
+                        JOptionPaneEx();
+                    } else if (CheckList.size() != 0) {
+                        loadPayPage();
+                    }
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
             }
         });
         btnNewButton.setBounds(618, 53, 130, 103);
@@ -643,22 +652,24 @@ public class MenuPage extends KioskPage {
 
     // 홈버튼 누르면 주문내역 초기화
     private void setLayout() {
-    	this.getHomeBtn();
-    	getHomeBtn().addActionListener(new ActionListener() {
-    	public void actionPerformed(ActionEvent e) {
-    		CheckList = new ArrayList<>();
-    		cart = new HashMap<>();
-    		}
-    });
+        this.getHomeBtn();
+        getHomeBtn().addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                CheckList = new ArrayList<>();
+                cart = new HashMap<>();
+            }
+        });
 //        this.getHomeBtn().addActionListener((e) -> KioskPage.getOrderData().clearMenu());
     }
+
     // 장바구니에 아무것도 없을시 에러창 팝업
     public void JOptionPaneEx() {
-		JOptionPane.showMessageDialog(this, "메뉴를 추가해주십시오.", "Message", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(this, "메뉴를 추가해주십시오.", "Message", JOptionPane.ERROR_MESSAGE);
 
     }
+
     public void JOptionPane4MAX() {
-		JOptionPane.showMessageDialog(this, "메뉴는 최대 4종류 선택가능합니다.", "Message", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(this, "메뉴는 최대 4종류 선택가능합니다.", "Message", JOptionPane.ERROR_MESSAGE);
 
     }
 }

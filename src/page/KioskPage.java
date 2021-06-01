@@ -57,29 +57,34 @@ public class KioskPage extends JPanel {
     protected static OrderData getOrderData() {
         return orderData;
     }
+
     protected void loadCreditCardPage() throws SQLException {
-    	PageType pageType = PageType.CREDITCARD_PAGE;
+        PageType pageType = PageType.CREDITCARD_PAGE;
         mainFrame.attachPage(pageType.createKioskPage());
     }
+
     protected void loadNextPage() throws SQLException {
         PageType pageType = pageData.getNextPageType();
         if (pageType != PageType.EMPTY_PAGE) {
             mainFrame.attachPage(pageType.createKioskPage());
         }
     }
+
     protected void loadPaymentPage() throws SQLException {
-    	PageType pageType = PageType.PAYMENT_PAGE;
+        PageType pageType = PageType.PAYMENT_PAGE;
         mainFrame.attachPage(pageType.createKioskPage());
     }
+
     protected void loadCouponPage() throws SQLException {
-    	PageType pageType = PageType.COUPON_PAGE;
+        PageType pageType = PageType.COUPON_PAGE;
         mainFrame.attachPage(pageType.createKioskPage());
     }
+
     protected void loadPayPage() throws SQLException {
-    	PageType pageType = PageType.PAY_PAGE;
+        PageType pageType = PageType.PAY_PAGE;
         mainFrame.attachPage(pageType.createKioskPage());
     }
-    
+
     protected void loadMenuPage() throws SQLException {
         PageType pageType = PageType.MENU_PAGE;
         mainFrame.attachPage(pageType.createKioskPage());
@@ -100,7 +105,7 @@ public class KioskPage extends JPanel {
             @Override
             public void mousePressed(MouseEvent e) {
                 if (onClickListener != null) {
-                   
+
                     onClickListener.onClick();
                 }
             }
@@ -171,10 +176,11 @@ public class KioskPage extends JPanel {
         return total;
 
     }
+
     //매장에서먹을지 나가먹을지 결정하는 변수
     //1 = IN , 2 = OUT
-   public static int InorOutNumber;
-   public static int total=0;
-   public static int totalquantity=0;
+    public static int InorOutNumber;
+    public static int total = 0;
+    public static int totalquantity = 0;
 
 }

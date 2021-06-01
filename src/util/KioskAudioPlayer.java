@@ -16,8 +16,6 @@ import javax.sound.sampled.UnsupportedAudioFileException;
  * 생성된 사운드는 audioFilePool에 저장된다.
  * 이미 생성된 사운드를 다시 재생할 시, audioFilePool에 저장된 사운드를 사용한다. (캐시 데이터 사용으로 리소스 사용의 효율성을 높인다.)
  * 사용자는 단순히 플레이어 재생을 이용하면 된다.
- *
- * @author Jaehyeon Kim
  */
 public class KioskAudioPlayer {
 

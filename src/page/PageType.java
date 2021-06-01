@@ -3,6 +3,7 @@ package page;
 import page.menu.MenuPage;
 import page.payment.*;
 import page.start.StartPage;
+
 import java.sql.SQLException;
 
 // enum => 열거형 클래스라고 보시면 됩니다.
@@ -13,17 +14,18 @@ public enum PageType {
     public KioskPage createKioskPage() throws SQLException {
         KioskPage kioskPage = null;
         if (this == EMPTY_PAGE) {
-            kioskPage = new KioskPage() {};
+            kioskPage = new KioskPage() {
+            };
         } else if (this == START_PAGE) {
             kioskPage = new StartPage();
         } else if (this == MENU_PAGE) {
             kioskPage = new MenuPage();
         } else if (this == PAY_PAGE) {
-        	kioskPage = new PayPage();
+            kioskPage = new PayPage();
         } else if (this == PAYMENT_PAGE) {
-        	kioskPage = new PaymentPage();
+            kioskPage = new PaymentPage();
         } else if (this == COUPON_PAGE) {
-        	kioskPage = new CouponPage();
+            kioskPage = new CouponPage();
         } else if (this == CREDITCARD_PAGE) {
             kioskPage = new CreditCardPage();
         } else if (this == RECEIPT_PAGE) {

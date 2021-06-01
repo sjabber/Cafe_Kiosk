@@ -5,7 +5,7 @@ import java.sql.*;
 
 public class ConnectDB {
 
-    public static Connection connection;
+    private static Connection connection;
     public boolean isOpened = false;
     public static Statement statement;
 

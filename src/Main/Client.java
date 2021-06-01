@@ -21,7 +21,7 @@ public class Client {
             System.out.println(rs.getString("Pname") + ", " + rs.getInt("Price"));
         }*/
 
-		db = new ConnectDB();
+		//db = new ConnectDB();
         new MainFrame().setVisible(true);
     }
 }

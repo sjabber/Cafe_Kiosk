@@ -139,7 +139,7 @@ public class CreditCardPage extends KioskPage {
                 } finally {
                     try {
                         CreditCardPage.this.loadNextPage();
-                        StampUpdate(PaymentPage.UserStamp+totalquantity, PaymentPage.ID);
+                        StampUpdate(PaymentPage.UserStamp + totalquantity, PaymentPage.ID);
                     } catch (SQLException exception) {
                         exception.printStackTrace();
                     }
@@ -180,8 +180,9 @@ public class CreditCardPage extends KioskPage {
         panel.add(imagePanel);
         return Middle;
     }
-    private void StampUpdate(int stamp, String ID) throws SQLException{
-        String query1="UPDATE user_info SET user_Stamp="+stamp+" WHERE user_ID='"+ID+"';";
+
+    private void StampUpdate(int stamp, String ID) throws SQLException {
+        String query1 = "UPDATE user_info SET user_Stamp=" + stamp + " WHERE user_ID='" + ID + "';";
         ConnectDB.statement.executeUpdate(query1);
-	}
+    }
 }
