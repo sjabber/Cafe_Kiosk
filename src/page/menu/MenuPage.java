@@ -237,7 +237,6 @@ public class MenuPage extends KioskPage {
                     selectPanel.setBounds(57, 52, 110, 43);
                     Top.add(selectPanel);
 
-                    DB.dbClose();
                     break;
 
                 case 2: // 추천 메뉴
@@ -253,7 +252,6 @@ public class MenuPage extends KioskPage {
                     selectPanel.setBounds(175, 52, 110, 43);
                     Top.add(selectPanel);
 
-                    DB.dbClose();
                     break;
 
                 case 3: // 디저트
@@ -262,7 +260,6 @@ public class MenuPage extends KioskPage {
                     selectPanel.setBounds(292, 52, 100, 43);
                     Top.add(selectPanel);
 
-                    DB.dbClose();
                     break;
 
                 case 4: // 커피 (ICE)
@@ -270,7 +267,6 @@ public class MenuPage extends KioskPage {
                     selectPanel.setBounds(410, 52, 130, 43);
                     Top.add(selectPanel);
 
-                    DB.dbClose();
                     break;
 
                 case 5: // 커피 (HOT)
@@ -278,7 +274,6 @@ public class MenuPage extends KioskPage {
                     selectPanel.setBounds(550, 52, 130, 43);
                     Top.add(selectPanel);
 
-                    DB.dbClose();
                     break;
             }
         }

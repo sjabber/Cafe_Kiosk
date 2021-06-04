@@ -140,6 +140,7 @@ public class CreditCardPage extends KioskPage {
                     try {
                         CreditCardPage.this.loadNextPage();
                         StampUpdate(PaymentPage.UserStamp + totalquantity, PaymentPage.ID);
+//                        totalquantity = 0;
                     } catch (SQLException exception) {
                         exception.printStackTrace();
                     }

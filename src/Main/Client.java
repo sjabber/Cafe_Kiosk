@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class Client {
 
-	public static ConnectDB db;
+//	public static ConnectDB db;
     public static void main(String[] args) throws SQLException {
 
 

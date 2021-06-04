@@ -334,6 +334,7 @@ public class CouponPage extends KioskPage{
 				JOptionPaneEND();
 				StampUpdate(UserStamp,DB);
 				PrintBill();
+				totalquantity=0;
 				loadStartPage();
 			}
 			

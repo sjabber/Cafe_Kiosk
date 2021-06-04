@@ -7,7 +7,6 @@ public class RoundButton extends JButton {
 
     private int num;
 
-
     public RoundButton() {
         decorate();
     }
